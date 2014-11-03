@@ -1,0 +1,75 @@
+\begin{thebibliography}{10}
+
+\bibitem{Loki}
+Darse Billings, Denis Papp, Jonathan Schaeffer, and Duane Szafron.
+\newblock Opponent modeling in poker.
+\newblock In {\em AAAI/IAAI}, pages 493--499, 1998.
+
+\bibitem{burnett2010bootstrapping}
+Chris Burnett, Timothy~J Norman, and Katia Sycara.
+\newblock Bootstrapping trust evaluations through stereotypes.
+\newblock In {\em Proceedings of the 9th International Conference on Autonomous
+  Agents and Multiagent Systems: volume 1-Volume 1}, pages 241--248.
+  International Foundation for Autonomous Agents and Multiagent Systems, 2010.
+
+\bibitem{burnett2013stereotypical}
+Chris Burnett, Timothy~J Norman, and Katia Sycara.
+\newblock Stereotypical trust and bias in dynamic multiagent systems.
+\newblock {\em ACM Transactions on Intelligent Systems and Technology (TIST)},
+  4(2):26, 2013.
+
+\bibitem{Carmel}
+David Carmel and Shaul Markovitch.
+\newblock Opponent modeling in multi-agent systems.
+\newblock In {\em Adaption and Learning in Multi-Agent Systems}, pages 40--52.
+  Springer, 1996.
+
+\bibitem{TOMMBA}
+Doran Chakraborty, Noa Agmon, and Peter Stone.
+\newblock Targeted opponent modeling of memory-bounded agents.
+\newblock In {\em Proceedings of the Adaptive Learning Agents Workshop (ALA)},
+  May 2013.
+
+\bibitem{Ekmekci}
+Omer Ekmekci and Volkan Sirin.
+\newblock Learning strategies for opponent modeling in poker.
+\newblock In {\em AAAI-13 Workshop}, 2013.
+
+\bibitem{Laviers}
+Kennard Laviers and Gita Sukthankar.
+\newblock A real-time opponent modeling system for rush football.
+\newblock In {\em Proceedings of the Twenty-Second international joint
+  conference on Artificial Intelligence-Volume Volume Three}, pages 2476--2481.
+  AAAI Press, 2011.
+
+\bibitem{Lockett}
+Alan~J Lockett, Charles~L Chen, and Risto Miikkulainen.
+\newblock Evolving explicit opponent models in game playing.
+\newblock In {\em Proceedings of the 9th annual conference on Genetic and
+  evolutionary computation}, pages 2106--2113. ACM, 2007.
+
+\bibitem{Ponsen}
+Marc Ponsen, Jan Ramon, Tom Croonenborghs, Kurt Driessens, and Karl Tuyls.
+\newblock Bayes-relational learning of opponent models from incomplete
+  information in no-limit poker.
+
+\bibitem{Southey}
+Finnegan Southey, Michael~P Bowling, Bryce Larson, Carmelo Piccione, Neil
+  Burch, Darse Billings, and Chris Rayner.
+\newblock Bayes' bluff: Opponent modelling in poker.
+\newblock {\em arXiv preprint arXiv:1207.1411}, 2012.
+
+\bibitem{Teofilo}
+Lu{\'\i}s~Filipe Te{\'o}filo, Nuno Passos, Lu{\'\i}s~Paulo Reis, and
+  Henrique~Lopes Cardoso.
+\newblock Adapting strategies to opponent models in incomplete information
+  games: a reinforcement learning approach for poker.
+\newblock In {\em Autonomous and Intelligent Systems}, pages 220--227.
+  Springer, 2012.
+
+\bibitem{Williams}
+Colin~R Williams, Valentin Robu, Enrico~H Gerding, and Nicholas~R Jennings.
+\newblock Using gaussian processes to optimise concession in complex
+  negotiations against unknown opponents.
+
+\end{thebibliography}

@@ -1,0 +1,49 @@
+﻿Build started 11/3/2014 10:52:14 AM.
+     1>Project "C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\roversDomain\roversDomain.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /openmp /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt roversDomain.cpp
+         roversDomain.cpp
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\gridworld\../State/State.h(30): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\neuroevo\../NeuralNet/NeuralNet.h(24): warning C4068: unknown pragma
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\neuroevo\../NeuralNet/NeuralNet.h(22): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\neuroevo\../NeuralNet/NeuralNet.h(23): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\neuroevo\../NeuralNet/NeuralNet.h(25): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\neuroevo\../NeuralNet/NeuralNet.h(31): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned long', possible loss of data
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\gridworld\../Rover/Rover.h(39): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\gridworld\../Rover/Rover.h(40): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(75): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(115): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(123): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(124): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(137): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(145): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(146): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(160): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(169): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(179): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(185): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(193): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(203): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(209): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(241): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(250): warning C4018: '<' : signed/unsigned mismatch
+     1>roversDomain.cpp(67): warning C4018: '<' : signed/unsigned mismatch
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\Release\roversDomain.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\Release\roversDomain.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\Release\roversDomain.lib" /MACHINE:X86 /SAFESEH Release\easyio.obj
+         Release\EnvironmentBounds.obj
+         Release\GridWorld.obj
+         Release\NeuralNet.obj
+         Release\NeuroEvo.obj
+         Release\PredatorPreyDomain.obj
+         Release\Rover.obj
+         Release\State.obj
+         Release\roversDomain.obj
+         Release\stdafx.obj
+         Generating code
+         Finished generating code
+         roversDomain.vcxproj -> C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\Release\roversDomain.exe
+     1>Done Building Project "C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\roversDomain\roversDomain.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.25
