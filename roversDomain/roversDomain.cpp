@@ -146,7 +146,11 @@ void runSim(int nRuns, int nEpochs, int nTrials, PredatorPreyDomainParameters* d
 	std::vector<std::vector<double> > runGLogs(nRuns);
 	
 	for (int run=0; run<nRuns; run++){
+		clock_t tref = clock();
+		printf("Run %i: ",run);
 		simulatePredPreyRun(domainParams,nEpochs,nTrials, runGLogs[run]);
+		double timediff = double(clock()-tref);
+		printf(" runtime = %f mins, time/epoch= %f seconds\n\n",timediff/60.0, timediff/double(nEpochs));
 	}
 
 	if (domainParams->usingTypes){

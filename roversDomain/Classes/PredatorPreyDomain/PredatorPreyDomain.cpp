@@ -305,7 +305,9 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 	if (trueUsingTypes) nEpochs = nEpochs-typeDelay; // prepares for break later, to insert stuff for typing
 
 	for (int i=0; i<nEpochs; i++){
-		printf("Epoch %i\n",i);
+		//printf("Epoch %i\n",i);
+		if (i%50==0) printf("(%i/%i)",i,nEpochs);
+		else printf(".");
 		simulatePredPreyEpoch(NESet,allTrialDomainsForEpoch);		
 		//outputSteps();
 		GLog[i] = getAverageBestNNScore(NESet);
@@ -513,7 +515,8 @@ void PredatorPreyDomain::initializePredPreyEpisode(int steps){
 
 
 void PredatorPreyDomain::simulatePredPreyEpisode(std::vector<NeuralNet*> NNSet, std::vector<double> &predFitnesses, std::vector<double> &preyFitnesses){
-	int steps = 100;
+//	int steps = 100;
+	int steps = 50;
 	stepLog.clear();
 	stepLog = std::vector<std::vector<std::vector<double> > >(steps);
 
