@@ -1,0 +1,44 @@
+\documentclass{aamas2014}
+\usepackage{graphicx}
+
+\title{Stereotypes in Coordination Domains}
+\author{Carrie Rebhuhn \\
+Oregon State University \\
+rebhuhnc@onid.orst.edu
+ \and Kagan Tumer \\
+ Oregon State University \\ 
+ kagan.tumer@oregonstate.edu
+ }
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In coordination tasks with heterogeneous agents it can be critical to have a representation of another agent's abilities. However in large systems it is impossible to keep a complete model of other agents. We show both with theoretical and empirical results that in coordination tasks, using a generalized agent model, or \emph{stereotype}, can increase the performance of an agent in a coordination domain. We demonstrate this theoretically using a game theoretic analysis, and we also demonstrate this in two domains; a simple points of interest domain and a more complex UAS conflict-avoidance domain.
+\end{abstract}
+
+\section{General Area}
+
+Agent modeling, multiagent coordination
+
+\section{Gap}
+
+Game theoretic models take the approach of modeling each of the actions another agent can take and finding the optimal action. In domains with many agents, this optimal action can be computationally intractable to find. Multiagent learning treats other agents as environmental obstacles, and neglects explicit modeling of other agents completely. We want to show there exists an intermediate approach that can take advantage of modeling approaches while having the scalability of multiagent learning.
+
+\section{Experimental Setup}
+
+The idea: you can just identify the general \emph{type} of an agent, and the multiagent learning setup can take this abstract state information and learn around it.
+
+We test this in 3 different domains: a teleporting rover/POI domain, a rover/POI domain, and a conflict-avoidance domain. These domains differ in their dynamics, but are unified in that they require coordination between agents.
+
+\section{Contributions}
+
+By conducting these experiments we show that abstract identification of a type of movement can have an impact on learning. 
+
+
+\section{Results}
+
+\section{Broader contributions}
+
+If stereotypes can work at an abstract level 
+
+\end{document}
