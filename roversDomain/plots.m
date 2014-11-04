@@ -15,9 +15,9 @@ load('predPreyTypes.csv')
 load('predPreyNoTypes.csv')
 
 hold on
-plot(mean(predPreyNoTypes))
-plot(mean(predPreyTypes),'r')
-% plot(predPreyNoTypes)
-% plot(predPreyTypes,'r')
+% plot(mean(predPreyNoTypes))
+% plot(mean(predPreyTypes),'r')
+plot(predPreyNoTypes)
+plot(predPreyTypes,'r')
 
 legend('blind','types')

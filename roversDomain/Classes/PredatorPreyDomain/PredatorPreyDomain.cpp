@@ -273,20 +273,21 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 
 	// Run settings and logging
 	GLog = std::vector<double>(nEpochs,0.0); // resets and allocates global reward logging
-	
-//	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements + int(Predator::numTypes)*(PPparams->usingTypes?1:0),2);
-	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements,2); // both start the same for now...
-	
+
+	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements + int(Predator::numTypes)*(PPparams->usingTypes?1:0),2);
+//	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements,2); // both start the same for now...
+
 	std::vector<std::vector<PredatorPreyDomain*> > allTrialDomainsForEpoch(NEParams->popSize*2); // hardcoded: 2k=100 neural networks... edit this later
 
-	//int typeDelay = nEpochs - nEpochs/5; // backwards hack: this will make delay UNTIL step 1/2 the run; 'typedelay' is amount of time types has to learn
-	int typeDelay = nEpochs; // backwards hack: this will make delay UNTIL step 1/2 the run; 'typedelay' is amount of time types has to learn
+	//int typeDelay = nEpochs; // backwards hack: this will make delay UNTIL step 1/2 the run; 'typedelay' is amount of time types has to learn
 
+	/*
 	bool trueUsingTypes = false;
 	if (PPparams->usingTypes){
 		PPparams->usingTypes=false;
 		trueUsingTypes = true;
 	}
+	*/
 
 	for (int i=0; i<allTrialDomainsForEpoch.size(); i++){
 		allTrialDomainsForEpoch[i] = std::vector<PredatorPreyDomain*>(nTrials);
@@ -302,7 +303,7 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 	}
 
 	
-	if (trueUsingTypes) nEpochs = nEpochs-typeDelay; // prepares for break later, to insert stuff for typing
+	//if (trueUsingTypes) nEpochs = nEpochs-typeDelay; // prepares for break later, to insert stuff for typing
 
 	for (int i=0; i<nEpochs; i++){
 		//printf("Epoch %i\n",i);
@@ -314,7 +315,7 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 	}
 
 	// using types again
-	if (trueUsingTypes){
+/*	if (trueUsingTypes){
 		PPparams->usingTypes=true;
 		nEpochs = nEpochs+typeDelay;
 		for (int i=0; i<NESet.size(); i++){
@@ -339,7 +340,7 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 			GLog[i] = getAverageBestNNScore(NESet);
 		}
 	}
-
+	*/
 
 	// OBJECT CLEANUP
 	for (int i=0; i<allTrialDomainsForEpoch.size(); i++){ // remove domains not being used
@@ -516,7 +517,7 @@ void PredatorPreyDomain::initializePredPreyEpisode(int steps){
 
 void PredatorPreyDomain::simulatePredPreyEpisode(std::vector<NeuralNet*> NNSet, std::vector<double> &predFitnesses, std::vector<double> &preyFitnesses){
 //	int steps = 100;
-	int steps = 50;
+	int steps = 100;
 	stepLog.clear();
 	stepLog = std::vector<std::vector<std::vector<double> > >(steps);
 

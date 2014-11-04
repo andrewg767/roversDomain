@@ -73,7 +73,7 @@ public:
 	PredatorPreyDomainParameters():
 		usingTypes(true),
 		nPredators(20),
-		nPrey(6),
+		nPrey(2),
 		rewardType(Global)
 	{
 		fixedTypes= std::vector<Predator::PredatorTypes>(nPredators);
@@ -170,11 +170,30 @@ public:
 		}
 	}
 
+	std::vector<double> getParticleVector(int j){
+		GridWorld::PairQueueAscending pq = sortedPreyDists(prey[j].x,prey[j].y);
+		double sumcharges;
+		for (int i=0; i<4; i++){
+			//force:
+			double r = pq.top().first;
+			double fx = predators[pq.top().second].x - prey[j].x;
+			double fy = predators[pq.top().second].y - prey[j].y;
+			
+		}
+	}
+
 	void setPreyActions(std::vector<std::vector<double> > &preyActions){
 		for (int j=0; j<prey.size(); j++){
 			preyActions[j] = std::vector<double>(2);
 			if (!prey[j].caught){
 				preyActions[j][0] = double(rand())/double(RAND_MAX);// random movements
+				// escaping prey
+			
+				GridWorld::PairQueueAscending pq = sortedPreyDists(prey[j].x,prey[j].y);
+				if (pq.top().first<1){
+					preyActions[j][1]*=2.0; // can move faster...
+				}
+				// each predator or wall acts as a force on prey
 			}
 		}
 	}

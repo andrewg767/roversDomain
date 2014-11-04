@@ -1,4 +1,4 @@
-﻿Build started 11/3/2014 9:57:14 PM.
+﻿Build started 11/4/2014 2:42:21 AM.
      1>Project "C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\roversDomain\roversDomain.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /openmp /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Classes\PredatorPreyDomain\PredatorPreyDomain.cpp roversDomain.cpp
@@ -19,14 +19,15 @@
      1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(150): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(151): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(165): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(174): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(184): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(190): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(198): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(208): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(214): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(246): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(255): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(175): warning C4101: 'sumcharges' : unreferenced local variable
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(186): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(203): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(209): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(217): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(227): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(233): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(265): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\predatorpreydomain\PredatorPreyDomain.h(274): warning C4018: '<' : signed/unsigned mismatch
      1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(5): warning C4018: '<' : signed/unsigned mismatch
      1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(14): warning C4018: '<' : signed/unsigned mismatch
      1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(15): warning C4018: '<' : signed/unsigned mismatch
@@ -54,27 +55,24 @@
      1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(230): warning C4018: '<' : signed/unsigned mismatch
      1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(261): warning C4018: '<' : signed/unsigned mismatch
      1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(262): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(291): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(293): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(320): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(327): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(328): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(345): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(292): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(294): warning C4018: '<' : signed/unsigned mismatch
      1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(346): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(350): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(359): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(368): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(347): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(351): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(360): warning C4018: '<' : signed/unsigned mismatch
      1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(369): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(390): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(395): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(453): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(462): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(477): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(480): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(501): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(505): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(529): warning C4018: '<' : signed/unsigned mismatch
-     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(547): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(370): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(391): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(396): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(454): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(463): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(478): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(481): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(502): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(506): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(530): warning C4018: '<' : signed/unsigned mismatch
+     1>Classes\PredatorPreyDomain\PredatorPreyDomain.cpp(548): warning C4018: '<' : signed/unsigned mismatch
          roversDomain.cpp
      1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\gridworld\../State/State.h(30): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\classes\neuroevo\../NeuralNet/NeuralNet.h(24): warning C4068: unknown pragma
@@ -92,14 +90,15 @@
      1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(150): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(151): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(165): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(174): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(184): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(190): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(198): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(208): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(214): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(246): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(255): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(175): warning C4101: 'sumcharges' : unreferenced local variable
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(186): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(203): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(209): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(217): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(227): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(233): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(265): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\carrie\documents\visual studio 2012\projects\roversdomain\roversdomain\Classes\PredatorPreyDomain\PredatorPreyDomain.h(274): warning C4018: '<' : signed/unsigned mismatch
      1>roversDomain.cpp(67): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\Release\roversDomain.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\Release\roversDomain.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\Release\roversDomain.lib" /MACHINE:X86 /SAFESEH Release\easyio.obj
@@ -119,4 +118,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.73
+Time Elapsed 00:00:04.78

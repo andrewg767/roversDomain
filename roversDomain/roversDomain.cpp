@@ -164,17 +164,17 @@ void runSim(int nRuns, int nEpochs, int nTrials, PredatorPreyDomainParameters* d
 void predatorPrey(){
 	// Evo settings
 	int nRuns = 1;
-	int nEpochs = 500;
-	int nTrials = 10;
+	int nEpochs = 300;
+	int nTrials = 20;
 
 	//******** No types setting
 	// Domain settings: uses default settings in PredatorPreyDomainParameters constructor
 	PredatorPreyDomainParameters *domainParams = new PredatorPreyDomainParameters();
-	domainParams->usingTypes = false;
+	domainParams->usingTypes = true;
 	runSim(nRuns, nEpochs, nTrials, domainParams);
 	
 	//******* Types setting
-	domainParams->usingTypes = true;
+	domainParams->usingTypes = false;
 	runSim(nRuns, nEpochs, nTrials, domainParams);
 
 	delete domainParams;

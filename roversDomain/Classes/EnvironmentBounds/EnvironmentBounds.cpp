@@ -3,7 +3,7 @@
 
 EnvironmentBounds::EnvironmentBounds(void)
 {
-		int singleSize = 50;
+		int singleSize = 30;
 		xBound = singleSize;
 		yBound = singleSize;
 }

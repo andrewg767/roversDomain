@@ -17,7 +17,7 @@ public:
 	~NeuralNet(){};
 	double evaluation;
 	void mutate(){
-		double mutStd = 1.0;
+		double mutStd = 0.5;
 		double mutationRate = 0.5;
 		for (int i=0; i<Wbar.size(); i++){
 			for (int j=0; j<Wbar[i].size(); j++){
