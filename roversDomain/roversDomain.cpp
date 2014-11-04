@@ -163,8 +163,8 @@ void runSim(int nRuns, int nEpochs, int nTrials, PredatorPreyDomainParameters* d
 
 void predatorPrey(){
 	// Evo settings
-	int nRuns = 5;
-	int nEpochs = 300;
+	int nRuns = 1;
+	int nEpochs = 500;
 	int nTrials = 10;
 
 	//******** No types setting

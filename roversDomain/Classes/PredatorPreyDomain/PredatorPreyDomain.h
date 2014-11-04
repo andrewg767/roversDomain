@@ -45,10 +45,10 @@ public:
 			// scale the neural network orientation command between 0-pi
 			//actionToTake[0]/=2.0;
 
-			//actionToTake[0]/=4.0; // HACK: can only turn 90deg max
+			actionToTake[0]/=4.0; // HACK: can only turn 90deg max
 
 			// Hack #2: immobile agent
-			actionToTake[1] = 0.0;
+			//actionToTake[1] = 0.0;
 		} else if (type==CW){
 			// scale on the negative side
 			//actionToTake[0]/=(-2.0);
