@@ -188,11 +188,32 @@ public:
 			if (!prey[j].caught){
 				preyActions[j][0] = double(rand())/double(RAND_MAX);// random movements
 				// escaping prey
+
+				double fx = 0.0;
+				double fy = 0.0;
+				for (int i=0; i<predators.size(); i++){
+					double dx = predators[i].x - prey[j].x;
+					double dy = predators[i].y - prey[j].y;
+					double dxy = sqrt(dx*dx + dy*dy);
+
+					double Fpred = 1/(dxy*dxy); // note: could multiply by charge force; omitting because assuming constant
+					fx += Fpred*(-dx/dxy); // F*xhat, also changes direction (opposite of predators)
+					fy += Fpred*(-dy/dxy); // F*yhat
+				}
+				double fDir = (atan2(fy,fx)/3.1416); //[-1,1]
+				fDir *= 0.5; // rescale to bounds [0,1]
+				if (fDir<0) fDir = 1.0-fDir; // rescale to bounds [0,1]
+
+				// ABSOLUTELY SET ORIENTATION
+				prey[j].orientation = fDir;
+				preyActions[j][0]=0; // already set by fdir
+				preyActions[j][1]=2.0;
 			
-				GridWorld::PairQueueAscending pq = sortedPreyDists(prey[j].x,prey[j].y);
+			
+				/*GridWorld::PairQueueAscending pq = sortedPreyDists(prey[j].x,prey[j].y);
 				if (pq.top().first<1){
 					preyActions[j][1]*=2.0; // can move faster...
-				}
+				}*/
 				// each predator or wall acts as a force on prey
 			}
 		}
