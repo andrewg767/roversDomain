@@ -73,7 +73,7 @@ public:
 	PredatorPreyDomainParameters():
 		usingTypes(true),
 		nPredators(20),
-		nPrey(2),
+		nPrey(8),
 		rewardType(Global)
 	{
 		fixedTypes= std::vector<Predator::PredatorTypes>(nPredators);

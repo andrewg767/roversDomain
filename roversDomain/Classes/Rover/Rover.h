@@ -45,7 +45,7 @@ public:
 		return double(rand())/double(RAND_MAX);
 	}
 
-	int x,y;
+	double x,y;
 	EnvironmentBounds bounds;
 	
 	void randWalk(double percentFail){

@@ -13,7 +13,7 @@ public:
 		nInput(inputSet),
 		nHidden(15),
 		nOutput(outputSet),
-		popSize(10){}
+		popSize(50){}
 
 	int nInput;
 	int nHidden;

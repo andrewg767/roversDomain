@@ -150,7 +150,7 @@ void runSim(int nRuns, int nEpochs, int nTrials, PredatorPreyDomainParameters* d
 		printf("Run %i: ",run);
 		simulatePredPreyRun(domainParams,nEpochs,nTrials, runGLogs[run]);
 		double timediff = double(clock()-tref);
-		printf(" runtime = %f mins, time/epoch= %f seconds\n\n",timediff/60.0, timediff/double(nEpochs));
+		printf(" runtime = %f mins, time/epoch= %f seconds\n\n",timediff/(CLOCKS_PER_SEC*60.0), timediff/double(nEpochs*CLOCKS_PER_SEC));
 	}
 
 	if (domainParams->usingTypes){
@@ -164,8 +164,8 @@ void runSim(int nRuns, int nEpochs, int nTrials, PredatorPreyDomainParameters* d
 void predatorPrey(){
 	// Evo settings
 	int nRuns = 1;
-	int nEpochs = 300;
-	int nTrials = 20;
+	int nEpochs = 100;
+	int nTrials = 5;
 
 	//******** No types setting
 	// Domain settings: uses default settings in PredatorPreyDomainParameters constructor

@@ -134,8 +134,8 @@ void PredatorPreyDomain::move(Rover &me, std::vector<double> &action){
 		double xset = me.x;
 		double yset = me.y;
 	
-		double dx = floor(preyMoveDistCap*action[1]*cos(me.orientation*2.0*3.14));
-		double dy = floor(preyMoveDistCap*action[1]*sin(me.orientation*2.0*3.14));
+		double dx = preyMoveDistCap*action[1]*cos(me.orientation*2.0*3.14);
+		double dy = preyMoveDistCap*action[1]*sin(me.orientation*2.0*3.14);
 		xset+= dx;
 		yset+= dy;
 
@@ -180,8 +180,8 @@ void PredatorPreyDomain::movePred(Predator &me, std::vector<double> &action){
 		double xset = me.x;
 		double yset = me.y;
 
-		double xAdd = floor(action[1]*cos(me.orientation*2.0*3.14));
-		double yAdd = floor(action[1]*sin(me.orientation*2.0*3.14));
+		double xAdd = action[1]*cos(me.orientation*2.0*3.14);
+		double yAdd = action[1]*sin(me.orientation*2.0*3.14);
 
 		xset+=xAdd;
 		yset+=yAdd;
@@ -290,10 +290,21 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 	*/
 
 	for (int i=0; i<allTrialDomainsForEpoch.size(); i++){
-		allTrialDomainsForEpoch[i] = std::vector<PredatorPreyDomain*>(nTrials);
+		allTrialDomainsForEpoch[i] = std::vector<PredatorPreyDomain*>(nTrials); // for every trial
 		for (int j=0; j<allTrialDomainsForEpoch[i].size(); j++){
 			allTrialDomainsForEpoch[i][j] = new PredatorPreyDomain(PPparams);
 			allTrialDomainsForEpoch[i][j]->initializePredPreyRun();
+		}
+		// Make positions at beginning consistent...
+		for (int j=0; j<nTrials; j++){
+			for (int k=0; k<allTrialDomainsForEpoch[i][j]->predators.size(); k++){
+				allTrialDomainsForEpoch[i][j]->predators[k].x = allTrialDomainsForEpoch[i][0]->predators[k].x;
+				allTrialDomainsForEpoch[i][j]->predators[k].y = allTrialDomainsForEpoch[i][0]->predators[k].y;
+			}
+			for (int k=0; k<allTrialDomainsForEpoch[i][j]->prey.size(); k++){
+				allTrialDomainsForEpoch[i][j]->prey[k].x = allTrialDomainsForEpoch[i][0]->prey[k].x;
+				allTrialDomainsForEpoch[i][j]->prey[k].y = allTrialDomainsForEpoch[i][0]->prey[k].y;
+			}
 		}
 	}
 
@@ -452,8 +463,8 @@ bool PredatorPreyDomain::checkCapture(Rover &p){
 
 	std::vector<int> catchList;
 	for (int i=0; i<predators.size(); i++){
-		if (capturePositions.count(std::pair<int,int>(predators[i].x,predators[i].y))){
-			capturePositions.erase(std::pair<int,int>(predators[i].x,predators[i].y));
+		if (capturePositions.count(std::pair<int,int>(floor(predators[i].x),floor(predators[i].y)))){
+			capturePositions.erase(std::pair<int,int>(floor(predators[i].x),floor(predators[i].y)));
 			catchList.push_back(i);
 		}
 	}
@@ -476,10 +487,10 @@ void PredatorPreyDomain::showTerrain(){
 			}
 		}
 		for (int p=0; p<predators.size(); p++){
-			grid[predators[p].y][predators[p].x]="d";
+			grid[(int)floor(predators[p].y)][(int)floor(predators[p].x)]="d";
 		}
 		for (int y=0; y<prey.size(); y++){
-			grid[prey[y].y][prey[y].x]="y";
+			grid[(int)floor(prey[y].y)][(int)floor(prey[y].x)]="y";
 		}
 		for (int y=0; y<10; y++){
 			for (int x=0; x<10; x++){
