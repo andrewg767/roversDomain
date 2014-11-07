@@ -11,8 +11,6 @@
 #include <functional>
 #include <utility>
 
-
-//#define POIVAL 100.0 // scaling value for POIs
 #define TRAVELBOUND 10.0 // amount you can travel in any direction (scaling parameter for NN)
 #define CLOSEBOUND 5.0 // distance away and still close (past this medium or far)
 #define MEDIUMBOUND 10.0 // distance away and still medium (past this far)
@@ -36,20 +34,13 @@ public:
 
 	typedef std::pair<double,int> P;
 	typedef std::priority_queue<P,std::vector<P>,std::greater<P> > PairQueueAscending;
-	//PairQueueAscending sortedPOIDists(double xref, double yref);
 	PairQueueAscending sortedRoverDists(double xref, double yref); // Rovers, sorted by distance away from reference point
 	int nearestNeighbor(int roverID); // just get the nearest
 
-	// BEGIN MATT FUNCTIONS
-	//	std::vector<double> NNranks; // deprecated
-	//void initializeNeuralNetPopulation(); //deprecated
+
+
 	void generateStaticRoverPositions();
-	//void roversSelectAndMutateNN(); // deprecaded
 
-//	void replaceWorstNNs(); //deprecated
- 
-
-	//std::vector<std::vector<double> > staticPOIPositions;
 	std::vector<std::vector<double> > staticRoverPositions;
 
 	void resetStaticRovers();
@@ -73,24 +64,7 @@ public:
 	virtual double getGlobalReward()=0;
 	virtual std::vector<double> getDifferenceReward()=0;
 
-	// Ranking (depends on reward structures)
-	/*void rankNN(){
-		if (!strcmp(rewardType.c_str(),"local")){
-			for (int i=0; i<rovers.size(); i++){
-				NNranks[i] = getLocalReward(i);
-			}
-		} else if (!strcmp(rewardType.c_str(),"global")){
-			double G = getGlobalReward();
-			NNranks = std::vector<double>(rovers.size(),G);
-		} else if (!strcmp(rewardType.c_str(),"difference")){
-			NNranks = getDifferenceReward();
-		} else {
-			printf("Can't figure out reward %s. Exiting after a pause.",rewardType.c_str());
-			system("pause");
-			exit(1);
-		}
-	}*/
-
+	
 	// Walking functions
 	void roverRandomWalk();
 

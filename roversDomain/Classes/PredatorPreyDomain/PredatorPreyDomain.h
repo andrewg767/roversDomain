@@ -20,7 +20,6 @@ public:
 
 	// Types definition
 	const enum PredatorTypes{Normal,CW, CCW, Fast, numTypes};
-	//const enum stateElementNames {orientationMe,distanceNearestPrey,orientationNearestPrey,distanceNearestNeighbor,orientationNearestNeighbor,numNonTypeElements};
 	const enum stateElementNames {orientationMe,dxNearestPrey,dyNearestPrey,dxNearestNeighbor,dyNearestNeighbor,numNonTypeElements};
 
 	double moveDistCap;
@@ -43,16 +42,11 @@ public:
 		// Type implementation scales the output
 		if (type==CCW){
 			// scale the neural network orientation command between 0-pi
-			//actionToTake[0]/=2.0;
-
 			actionToTake[0]/=4.0; // HACK: can only turn 90deg max
 
 			// Hack #2: immobile agent
 			//actionToTake[1] = 0.0;
-		} else if (type==CW){
-			// scale on the negative side
-			//actionToTake[0]/=(-2.0);
-			
+		} else if (type==CW){	
 			// unreliable agent
 			if (rand()%100<30){ // 30% of the time random
 				actionToTake[0] = double(rand())/double(RAND_MAX)*2.0-1.0;
@@ -208,13 +202,6 @@ public:
 				prey[j].orientation = fDir;
 				preyActions[j][0]=0; // already set by fdir
 				preyActions[j][1]=2.0;
-			
-			
-				/*GridWorld::PairQueueAscending pq = sortedPreyDists(prey[j].x,prey[j].y);
-				if (pq.top().first<1){
-					preyActions[j][1]*=2.0; // can move faster...
-				}*/
-				// each predator or wall acts as a force on prey
 			}
 		}
 	}

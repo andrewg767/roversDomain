@@ -49,9 +49,6 @@ public:
 	EnvironmentBounds bounds;
 	
 	void randWalk(double percentFail){
-		/*int direction = rand()%9+1; // select between directions (numpad map)
-		walk(direction, percentFail);*/
-		// randomly select dx/dy
 		walk(rand()%2,rand()%2,percentFail); // take 0-1 steps in any direction
 	}
 

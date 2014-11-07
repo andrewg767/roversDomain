@@ -3,11 +3,6 @@
 #include <iostream>
 #include <chrono>
 #include <random>
-//#include "../../master_libraries/easyio/easyio.h" // Include for use of "NeuralNet::tester"
-
-/*class NeuralNetParams{
-	
-};*/
 
 class NeuralNet{
 public:
