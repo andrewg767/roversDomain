@@ -23,33 +23,33 @@ void GridWorld::generateStaticRoverPositions(){
 		rovers[i].y = randY;
 		staticRoverPositions[i][0] = randX;
 		staticRoverPositions[i][1] = randY;
-		
+
 	}
 }
 
 std::pair<GridWorld::Direction,GridWorld::DistanceDivision> GridWorld::relativePosition(double x1, double y1, double x2, double y2){
-		// Get the relative position of the second object to the first object
+	// Get the relative position of the second object to the first object
 
-		double dist = gridDistance(x1,y1,x2,y2);
-		DistanceDivision div;
-		if (dist<CLOSEBOUND) div = CLOSE;
-		else if (dist<MEDIUMBOUND) div = MEDIUM;
-		else div = FAR;
+	double dist = gridDistance(x1,y1,x2,y2);
+	DistanceDivision div;
+	if (dist<CLOSEBOUND) div = CLOSE;
+	else if (dist<MEDIUMBOUND) div = MEDIUM;
+	else div = FAR;
 
-		if (y1<y2){ // rover above me, quadrant 1-2
-			if (x1<x2){ // rover right, quadrant 1
-				return std::make_pair(Q1,div);
-			} else {
-				return std::make_pair(Q2,div); // quadrant 2
-			}
-		} else { // rover below me, quadrant 3-4
-			if (x1<x2){ // rover right, quadrant 4
-				return std::make_pair(Q4,div);
-			} else {
-				return std::make_pair(Q3,div);
-			}
+	if (y1<y2){ // rover above me, quadrant 1-2
+		if (x1<x2){ // rover right, quadrant 1
+			return std::make_pair(Q1,div);
+		} else {
+			return std::make_pair(Q2,div); // quadrant 2
+		}
+	} else { // rover below me, quadrant 3-4
+		if (x1<x2){ // rover right, quadrant 4
+			return std::make_pair(Q4,div);
+		} else {
+			return std::make_pair(Q3,div);
 		}
 	}
+}
 
 void GridWorld::resetStaticRovers(){
 	for (int i=0; i<staticRoverPositions.size(); i++){
@@ -147,4 +147,8 @@ void GridWorld::exportCSV2(std::vector<std::vector<double> > myvec, std::string 
 		myfile << "\n";
 	}
 	myfile.close();
+}
+
+double GridWorld::gridDistance(Rover &r1, Rover &r2){
+	return gridDistance(r1.x,r1.y,r2.x,r2.y);
 }

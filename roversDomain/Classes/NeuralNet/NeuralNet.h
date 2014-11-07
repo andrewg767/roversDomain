@@ -11,25 +11,7 @@ public:
 	NeuralNet(){};
 	~NeuralNet(){};
 	double evaluation;
-	void mutate(){
-		double mutStd = 0.5;
-		double mutationRate = 0.5;
-		for (int i=0; i<Wbar.size(); i++){
-			for (int j=0; j<Wbar[i].size(); j++){
-		#pragma parallel omp for
-				for (int k=0; k<Wbar[i][j].size(); k++){
-					if (double(rand())/double(RAND_MAX)<mutationRate){
-						// reset one of the weights
-						double fan_in = double(Wbar[i].size());
-						std::default_random_engine generator;
-						generator.seed(time(NULL));
-						std::normal_distribution<double> distribution(0.0,mutStd);
-						Wbar[i][j][k] += distribution(generator);
-					}
-				}
-			}
-		}
-	}
+	void mutate();
 
 	void addInputs(int nToAdd);
 

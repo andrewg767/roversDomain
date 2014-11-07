@@ -38,7 +38,7 @@ void simulatePredPreyEpisodeFull(std::vector<NeuralNet*> NNSet, std::vector<Pred
 	std::vector<std::vector<double> > predFitnesses(trials.size());
 	std::vector<std::vector<double> > preyFitnesses(trials.size());
 
-//#pragma omp parallel for // TODO: verify parallelizability
+	//#pragma omp parallel for // TODO: verify parallelizability
 	for (int t=0; t<trials.size(); t++){
 		//printf("t=%i, ",t);
 		trials[t]->simulatePredPreyEpisode(NNSet,predFitnesses[t],preyFitnesses[t]); // pred/prey fitnesses set inside this
@@ -62,7 +62,7 @@ void simulatePredPreyEpoch(std::vector<NeuroEvo*> &NESet, std::vector<std::vecto
 	// Preprocessing: access a set of neural networks given by each neuroEvo element
 	int numNN = NESet[0]->population.size();
 	std::vector<std::vector<NeuralNet*> > NNSets(numNN); // Set to the number of population members
-	
+
 	std::vector<std::list<NeuralNet*>::iterator> popMembersInNNSet(NESet.size()); // list of iterators to set members across NE objects
 	for (int i=0; i<NESet.size(); i++){ // initialization of iterator list
 		popMembersInNNSet[i]=NESet[i]->population.begin();
@@ -103,135 +103,135 @@ bool PredatorPreyDomain::checkKill(Rover &p){
 
 double getAverageBestNNScore(std::vector<NeuroEvo*> &NESet){
 	double NNBestSum = 0.0;
-		for (int i=0; i<NESet.size(); i++){
-			NNBestSum += NESet[i]->getBestMemberVal();
-		}
-		return NNBestSum/double(NESet.size());
+	for (int i=0; i<NESet.size(); i++){
+		NNBestSum += NESet[i]->getBestMemberVal();
 	}
+	return NNBestSum/double(NESet.size());
+}
 
 void PredatorPreyDomain::detectZero(){
 	for (int j=0; j<predators.size(); j++){
-			for (int k=0; k<prey.size(); k++){
-				if (!gridDistance(predators[j], prey[k])){
-					printf("Zero detected.\n");
-				}
+		for (int k=0; k<prey.size(); k++){
+			if (!gridDistance(predators[j], prey[k])){
+				printf("Zero detected.\n");
 			}
 		}
+	}
 }
 
 void PredatorPreyDomain::move(Rover &me, std::vector<double> &action){
-		// action is: [rotation modification][distance to move] 
+	// action is: [rotation modification][distance to move] 
 
-		double preyMoveDistCap = 2.0;
-		me.orientation+= action[0];
+	double preyMoveDistCap = 2.0;
+	me.orientation+= action[0];
 	//	printf("Action 0 was %f\n",action[0]);
-		if (me.orientation>1.0) me.orientation -=1.0; // adjust for turning
-		else if (me.orientation<0.0) me.orientation +=1.0; // adjust for turning
-		
+	if (me.orientation>1.0) me.orientation -=1.0; // adjust for turning
+	else if (me.orientation<0.0) me.orientation +=1.0; // adjust for turning
 
-		// The xy vals of proposed movement
-		double xset = me.x;
-		double yset = me.y;
-	
-		double dx = preyMoveDistCap*action[1]*cos(me.orientation*2.0*3.14);
-		double dy = preyMoveDistCap*action[1]*sin(me.orientation*2.0*3.14);
-		xset+= dx;
-		yset+= dy;
 
-		//cap
-		bounds.cap(xset,'x');
-		bounds.cap(yset,'y');
+	// The xy vals of proposed movement
+	double xset = me.x;
+	double yset = me.y;
 
-		// restore original position if another exists in that spot
-		bool blocked = false;
-		for (int i=0; i<predators.size(); i++){ // check if any predators in that spot
-			if (predators[i].x==xset && predators[i].y==yset){
-				blocked=true;
-				break;
-			}
+	double dx = preyMoveDistCap*action[1]*cos(me.orientation*2.0*3.14);
+	double dy = preyMoveDistCap*action[1]*sin(me.orientation*2.0*3.14);
+	xset+= dx;
+	yset+= dy;
+
+	//cap
+	bounds.cap(xset,'x');
+	bounds.cap(yset,'y');
+
+	// restore original position if another exists in that spot
+	bool blocked = false;
+	for (int i=0; i<predators.size(); i++){ // check if any predators in that spot
+		if (predators[i].x==xset && predators[i].y==yset){
+			blocked=true;
+			break;
 		}
-		for (int i=0; i<prey.size(); i++){
-			if (prey[i].x==xset && prey[i].y==yset){ // check if any prey in that spot
-				blocked=true;
-			}
-		}
-
-		if (!blocked){
-			me.x=xset;
-			me.y=yset;
-		}
-		
-		//detectZero();
 	}
+	for (int i=0; i<prey.size(); i++){
+		if (prey[i].x==xset && prey[i].y==yset){ // check if any prey in that spot
+			blocked=true;
+		}
+	}
+
+	if (!blocked){
+		me.x=xset;
+		me.y=yset;
+	}
+
+	//detectZero();
+}
 
 void PredatorPreyDomain::movePred(Predator &me, std::vector<double> &action){
-		// action is: [rotation modification][distance to move]
+	// action is: [rotation modification][distance to move]
 
-		me.orientation+= action[0]/2.0; // only 180deg turns OK
-		if (me.orientation>=1.0){
-			me.orientation -=1.0; // adjust for turning
-		} else if (me.orientation<0.0){
-			me.orientation +=1.0; // adjust for turning
-		}
-		
-
-		// The xy vals of proposed movement
-		double xset = me.x;
-		double yset = me.y;
-
-		double xAdd = action[1]*cos(me.orientation*2.0*3.14);
-		double yAdd = action[1]*sin(me.orientation*2.0*3.14);
-
-		xset+=xAdd;
-		yset+=yAdd;
-
-		//cap
-		bounds.cap(xset,'x');
-		bounds.cap(yset,'y');
-
-		// restore original position if another exists in that spot
-		bool blocked = false;
-		for (int i=0; i<predators.size(); i++){ // check if any predators in that spot
-			if (predators[i].x==xset && predators[i].y==yset){
-				blocked=true;
-				break;
-			}
-		}
-		for (int i=0; i<prey.size(); i++){
-			if (prey[i].x==xset && prey[i].y==yset){ // check if any prey in that spot
-				blocked=true;
-			}
-		}
-
-		if (!blocked){
-			me.x=xset;
-			me.y=yset;
-		}		
-		//detectZero(); // for debugging
+	me.orientation+= action[0]/2.0; // only 180deg turns OK
+	if (me.orientation>=1.0){
+		me.orientation -=1.0; // adjust for turning
+	} else if (me.orientation<0.0){
+		me.orientation +=1.0; // adjust for turning
 	}
+
+
+	// The xy vals of proposed movement
+	double xset = me.x;
+	double yset = me.y;
+
+	double xAdd = action[1]*cos(me.orientation*2.0*3.14);
+	double yAdd = action[1]*sin(me.orientation*2.0*3.14);
+
+	xset+=xAdd;
+	yset+=yAdd;
+
+	//cap
+	bounds.cap(xset,'x');
+	bounds.cap(yset,'y');
+
+	// restore original position if another exists in that spot
+	bool blocked = false;
+	for (int i=0; i<predators.size(); i++){ // check if any predators in that spot
+		if (predators[i].x==xset && predators[i].y==yset){
+			blocked=true;
+			break;
+		}
+	}
+	for (int i=0; i<prey.size(); i++){
+		if (prey[i].x==xset && prey[i].y==yset){ // check if any prey in that spot
+			blocked=true;
+		}
+	}
+
+	if (!blocked){
+		me.x=xset;
+		me.y=yset;
+	}		
+	//detectZero(); // for debugging
+}
 
 GridWorld::PairQueueAscending PredatorPreyDomain::sortedPredatorDists(double xref, double yref){
-		typedef std::pair<double,int> P;
-		std::vector<P> dists(predators.size(),std::make_pair<double,int>(0.0,0));
-		for (int j=0; j<predators.size(); j++){
-			dists[j]=P(gridDistance(xref,yref,predators[j].x,predators[j].y),j);
-		}
-
-		PairQueueAscending q(dists.begin(),dists.end());
-		return q;
+	typedef std::pair<double,int> P;
+	std::vector<P> dists(predators.size(),std::make_pair<double,int>(0.0,0));
+	for (int j=0; j<predators.size(); j++){
+		dists[j]=P(gridDistance(xref,yref,predators[j].x,predators[j].y),j);
 	}
+
+	PairQueueAscending q(dists.begin(),dists.end());
+	return q;
+}
 
 GridWorld::PairQueueAscending PredatorPreyDomain::sortedPreyDists(double xref, double yref){
 	// distance of predator away from each prey
-		typedef std::pair<double,int> P;
-		std::vector<P> dists(prey.size(),std::make_pair<double,int>(0.0,0));
-		for (int j=0; j<prey.size(); j++){
-			dists[j]=P(gridDistance(xref,yref,prey[j].x,prey[j].y),j);
-		}
-
-		PairQueueAscending q(dists.begin(),dists.end());
-		return q;
+	typedef std::pair<double,int> P;
+	std::vector<P> dists(prey.size(),std::make_pair<double,int>(0.0,0));
+	for (int j=0; j<prey.size(); j++){
+		dists[j]=P(gridDistance(xref,yref,prey[j].x,prey[j].y),j);
 	}
+
+	PairQueueAscending q(dists.begin(),dists.end());
+	return q;
+}
 
 void PredatorPreyDomain::initializePredPreyRun(){
 	/*
@@ -273,11 +273,11 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 	GLog = std::vector<double>(nEpochs,0.0); // resets and allocates global reward logging
 
 	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements + int(Predator::numTypes)*(PPparams->usingTypes?1:0),2);
-//	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements,2); // both start the same for now... FROM TESTING WITH DELAYED TYPE INTRODUCTION
+	//	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements,2); // both start the same for now... FROM TESTING WITH DELAYED TYPE INTRODUCTION
 
 	std::vector<std::vector<PredatorPreyDomain*> > allTrialDomainsForEpoch(NEParams->popSize*2); // hardcoded: 2k=100 neural networks... edit this later
 
-	
+
 
 	for (int i=0; i<allTrialDomainsForEpoch.size(); i++){
 		allTrialDomainsForEpoch[i] = std::vector<PredatorPreyDomain*>(nTrials); // for every trial
@@ -303,7 +303,7 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 		NESet[i] = new NeuroEvo(NEParams);
 	}
 
-	
+
 	for (int i=0; i<nEpochs; i++){
 		//printf("Epoch %i\n",i);
 		if (i%50==0) printf("(%i/%i)",i,nEpochs);
@@ -352,7 +352,7 @@ double mean(std::vector<double> myVector){
 std::vector<double> PredatorPreyDomain::getLocalPredReward(void){
 	// NOTE: THIS IS A LOCAL REWARD, no coordination required...
 	// may later encourage coordination if other predators do not catch prey
-	
+
 	/* PREVIOUS (NOT WORKING):*/
 	std::vector<double> rwdvect(predators.size(),0.0);
 	for (int i=0; i<predators.size(); i++){
@@ -398,33 +398,33 @@ void PredatorPreyDomain::showTerrain(){
 	std::string grid[boundSize][boundSize];
 	for (int y=0; y<boundSize; y++){
 		for (int x=0; x<boundSize; x++){
-				grid[y][x]=".";
-			}
+			grid[y][x]=".";
 		}
-		for (int p=0; p<predators.size(); p++){
-			grid[(int)floor(predators[p].y)][(int)floor(predators[p].x)]="d";
+	}
+	for (int p=0; p<predators.size(); p++){
+		grid[(int)floor(predators[p].y)][(int)floor(predators[p].x)]="d";
+	}
+	for (int y=0; y<prey.size(); y++){
+		grid[(int)floor(prey[y].y)][(int)floor(prey[y].x)]="y";
+	}
+	for (int y=0; y<10; y++){
+		for (int x=0; x<10; x++){
+			printf("%s",grid[y][x].c_str());
 		}
-		for (int y=0; y<prey.size(); y++){
-			grid[(int)floor(prey[y].y)][(int)floor(prey[y].x)]="y";
-		}
-		for (int y=0; y<10; y++){
-			for (int x=0; x<10; x++){
-				printf("%s",grid[y][x].c_str());
-			}
-			printf("\n");
-		}
-		printf("\n\n\n");
-		system("pause");
+		printf("\n");
+	}
+	printf("\n\n\n");
+	system("pause");
 }
 
 void PredatorPreyDomain::initializePredPreyEpisode(int steps){
-	
+
 	setUniqueRandomPredPreyPositions();
 
 	deltaPredPrey.clear();
 	deltaPredPrey = std::vector<std::vector<double> >(predators.size());
 
-	
+
 	for (int i=0; i<predators.size(); i++){
 		deltaPredPrey[i] = std::vector<double>(steps,0.0);
 		predators[i].caught=false;
@@ -468,7 +468,7 @@ void PredatorPreyDomain::simulatePredPreyEpisode(std::vector<NeuralNet*> NNSet, 
 			//printf("All Captured!!\n\n\n");
 			break;
 		}
-		
+
 		stepLog[i] = std::vector<std::vector<double> >(predators.size());
 		for (int j=0; j<predators.size(); j++){
 			stepLog[i][j] = std::vector<double>(2);
@@ -508,9 +508,9 @@ void PredatorPreyDomain::getPredatorState(Predator &p){
 	// collect domain information for Predator state
 	// STATE ELEMENTS:
 	// {oMe, dNp, oNp, dNN, oNN, [tNN]} = 5 + nTypes
-	
+
 	p.stateInputs[(int)Predator::stateElementNames::orientationMe] = p.orientation;
-	
+
 	// Nearest prey
 	GridWorld::PairQueueAscending pq = sortedPreyDists(p.x,p.y);
 	if (pq.top().first<sightRange){
@@ -550,11 +550,11 @@ State PredatorPreyDomain::getPreyState(int me, bool returnBlankState){
 	// {oMe, dNp, oNp} = 3
 	enum stateElementNames {orientationMe,distanceNearestPredator,orientationNearestPredator,numNonTypeElements}; // we assume that the prey sees no types
 	std::vector<double> stateElements(numNonTypeElements,0.0);
-	
+
 	if (!returnBlankState){
 		stateElements[orientationMe] = predators[me].orientation;
-	
-	
+
+
 		// Nearest prey
 		GridWorld::PairQueueAscending pq = sortedPredatorDists(predators[me].x,predators[me].y);
 		if (pq.top().first<sightRange){
@@ -567,4 +567,216 @@ State PredatorPreyDomain::getPreyState(int me, bool returnBlankState){
 	}
 
 	return State(stateElements);
+}
+
+Predator::Predator(bool usingTypes):Rover(){
+	// fill with other things
+	static int IDset = 0;
+	ID = IDset++;
+
+	moveDistCap=2.0;
+	type = PredatorTypes(rand()%int(numTypes));
+
+	stateInputs = std::vector<double>(numNonTypeElements + int(numTypes)*(usingTypes?1:0),0.0);
+};
+
+void Predator::selectAction(NeuralNet* NN){ // given a certain stateInputs (defined prior) get an action
+	// Sets the values of actionToTake
+	actionToTake = NN->predictContinuous(stateInputs); // gives [rotation dtheta][movement d]
+	actionToTake[0] = 2.0*actionToTake[0]-1.0; // scale between [-1,1]
+
+
+	//printf("NN out = %f,%f\n",actionToTake[0],actionToTake[1]);
+
+	// Type implementation scales the output
+	if (type==CCW){
+		// scale the neural network orientation command between 0-pi
+		actionToTake[0]/=4.0; // HACK: can only turn 90deg max
+
+		// Hack #2: immobile agent
+		//actionToTake[1] = 0.0;
+	} else if (type==CW){	
+		// unreliable agent
+		if (rand()%100<30){ // 30% of the time random
+			actionToTake[0] = double(rand())/double(RAND_MAX)*2.0-1.0;
+			actionToTake[1] = double(rand())/double(RAND_MAX);
+		}
+
+	} else if (type== Fast){
+		actionToTake[1] *= 2.0; // multiply output action by 2
+	}
+
+	actionToTake[1]*=moveDistCap;
+}
+
+
+PredatorPreyDomainParameters::PredatorPreyDomainParameters():
+	usingTypes(true),
+	nPredators(20),
+	nPrey(8),
+	rewardType(Global)
+{
+	fixedTypes= std::vector<Predator::PredatorTypes>(nPredators);
+	for (int i=0; i<fixedTypes.size(); i++){
+		// Creates an even distribution of predator types
+		fixedTypes[i] = Predator::PredatorTypes(i%int(Predator::PredatorTypes::numTypes));
+	}
+};
+
+void PredatorPreyDomain::randomizePredatorPositions(){
+	for (int i=0; i<predators.size(); i++){
+		predators[i].x = rand()%bounds.size('x');
+		predators[i].y = rand()%bounds.size('y');
+	}
+
+	bool blocked = true;
+	while (blocked){
+		blocked = false;	
+		for (int i=0; i<predators.size()-1; i++){
+			for (int j=i+1; j<predators.size(); j++){
+				if (!gridDistance(predators[i],predators[j])){
+					predators[j].x = rand()%bounds.size('x');
+					predators[j].y = rand()%bounds.size('y');
+					blocked = true;
+					break;
+				}
+			}
+			if (blocked) break;
+		}
+	}
+}
+
+void PredatorPreyDomain::randomizePreyPositions(){
+	for (int i=0; i<prey.size(); i++){
+		prey[i].x = rand()%bounds.size('x');
+		prey[i].y = rand()%bounds.size('y');
+	}
+
+	bool blocked = true;
+	while (blocked){
+		blocked = false;	
+		for (int i=0; i<prey.size()-1; i++){
+			for (int j=i+1; j<prey.size(); j++){
+				if (!gridDistance(prey[i],prey[j])){
+					prey[j].x = rand()%bounds.size('x');
+					prey[j].y = rand()%bounds.size('y');
+					blocked = true;
+					break;
+				}
+			}
+			if (blocked) break;
+		}
+	}
+}
+
+
+void PredatorPreyDomain::setPredatorActions(std::vector<NeuralNet*> NNSet){
+	for (int i=0; i<predators.size(); i++){
+		if (!predators[i].caught){
+			getPredatorState(predators[i]);
+			predators[i].selectAction(NNSet[i]); // uses stateInputs previously set
+		}
+	}
+}
+
+
+void PredatorPreyDomain::setPreyActions(std::vector<std::vector<double> > &preyActions){
+	for (int j=0; j<prey.size(); j++){
+		preyActions[j] = std::vector<double>(2);
+		if (!prey[j].caught){
+			preyActions[j][0] = double(rand())/double(RAND_MAX);// random movements
+			// escaping prey
+
+			double fx = 0.0;
+			double fy = 0.0;
+			for (int i=0; i<predators.size(); i++){
+				double dx = predators[i].x - prey[j].x;
+				double dy = predators[i].y - prey[j].y;
+				double dxy = sqrt(dx*dx + dy*dy);
+
+				double Fpred = 1/(dxy*dxy); // note: could multiply by charge force; omitting because assuming constant
+				fx += Fpred*(-dx/dxy); // F*xhat, also changes direction (opposite of predators)
+				fy += Fpred*(-dy/dxy); // F*yhat
+			}
+			double fDir = (atan2(fy,fx)/3.1416); //[-1,1]
+			fDir *= 0.5; // rescale to bounds [0,1]
+			if (fDir<0) fDir = 1.0-fDir; // rescale to bounds [0,1]
+
+			// ABSOLUTELY SET ORIENTATION
+			prey[j].orientation = fDir;
+			preyActions[j][0]=0; // already set by fdir
+			preyActions[j][1]=2.0;
+		}
+	}
+}
+
+void PredatorPreyDomain::movePredators(){
+	for (int j=0; j<predators.size(); j++){
+		if (!predators[j].caught) movePred(predators[j],predators[j].actionToTake); // previously set by selectAction; ONLY the predators not eating move
+	}
+}
+
+void PredatorPreyDomain::movePrey(std::vector<std::vector<double> > &preyActions){
+	for (int j=0; j<prey.size(); j++){
+		if (!prey[j].caught) move(prey[j],preyActions[j]);
+	}
+}
+
+bool PredatorPreyDomain::checkSystemCapture(int t){
+	// Goal check, mixed with reward updating
+	int nCaptured = 0;
+	for (int j=0; j<prey.size(); j++){
+		if (!captured[j]){
+			captured[j] = checkCapture(prey[j]);
+			if (!captured[j]){
+				stepsToCapture[j]++;
+			}
+		} else {
+			nCaptured++;
+		}
+	}
+	for (int j=0; j<predators.size(); j++){
+		if(!predators[j].caught) predStepsToCapture[j]++;
+	}
+
+	if (nCaptured==prey.size()) allCaptured = true;
+
+	for (int j=0; j<predators.size(); j++){
+		GridWorld::PairQueueAscending pq = sortedPreyDists(predators[j].x,predators[j].y);
+		while(pq.size() && prey[pq.top().second].caught){
+			pq.pop();
+		}
+
+		if (pq.size()==0){
+			deltaPredPrey[j][t] = 0.0; // no penalty, all caught!
+		} else {
+			deltaPredPrey[j][t] = pq.top().first;
+		}
+	}
+
+	return allCaptured;
+}
+
+void PredatorPreyDomain::setUniqueRandomPredPreyPositions(){
+	std::set<std::pair<int,int> > positionSet;
+	while (positionSet.size()<(predators.size()+prey.size())){
+		positionSet.insert(std::make_pair(rand()%bounds.size('x'),rand()%bounds.size('y')));
+	}
+	for (int i=0; i<predators.size(); i++){
+		int randEntry = (rand()%positionSet.size());
+		std::set<std::pair<int,int> >::iterator it = positionSet.begin();
+		std::advance(it,randEntry);
+		predators[i].x = it->first;
+		predators[i].y = it->second;
+		positionSet.erase(it);
+	}
+
+	for (int i=0; i<prey.size(); i++){
+		int randEntry = (rand()%positionSet.size());
+		std::set<std::pair<int,int> >::iterator it = positionSet.begin();
+		std::advance(it,randEntry);
+		prey[i].x = it->first;
+		prey[i].y = it->second;
+		positionSet.erase(it);
+	}
 }

@@ -16,48 +16,41 @@
 #define MEDIUMBOUND 10.0 // distance away and still medium (past this far)
 
 class GridWorld{
-
 public:
-	int nRovers;
-	double percentFail; // failure/type enactment percentage
-	
-	std::vector<double> performanceVals;
-	
-	// State definition
+	// Generation functions
+	GridWorld();
+	~GridWorld();
+
+	// Class variables
 	enum Direction{Q1,Q2,Q3,Q4,NSECTORS};
 	enum DistanceDivision{CLOSE,MEDIUM,FAR,NDISTANCES};
+	typedef std::pair<double,int> P;
+	typedef std::priority_queue<P,std::vector<P>,std::greater<P> > PairQueueAscending;
+	int nRovers;
+	double percentFail; // failure/type enactment percentage
+	double deltaO;
+	std::vector<double> performanceVals;
+	std::vector<std::vector<int> > startingPositions;
+	std::vector<std::vector<double> > staticRoverPositions;
+
+	// Initialization
+	void generateRovers();
+	void generateStaticRoverPositions();
 
 	// Sensor functions
 	std::pair<Direction,DistanceDivision> relativePosition(double x1, double y1, double x2, double y2);
-
 	void logRoverPositions();
-
-	typedef std::pair<double,int> P;
-	typedef std::priority_queue<P,std::vector<P>,std::greater<P> > PairQueueAscending;
 	PairQueueAscending sortedRoverDists(double xref, double yref); // Rovers, sorted by distance away from reference point
 	int nearestNeighbor(int roverID); // just get the nearest
 
 
-
-	void generateStaticRoverPositions();
-
-	std::vector<std::vector<double> > staticRoverPositions;
-
-	void resetStaticRovers();
-
-
-	double deltaO;
 	double gridDistance(double x1, double y1, double x2, double y2);
-	double gridDistance(Rover &r1, Rover &r2){
-		return gridDistance(r1.x,r1.y,r2.x,r2.y);
-	}
+	double gridDistance(Rover &r1, Rover &r2);
 	
 	EnvironmentBounds bounds;
 	std::vector<Rover> rovers;
 	std::vector<std::vector<char> > positionData; // deprecated?
 
-	GridWorld();
-	~GridWorld();
 	
 	// REWARD STRUCTURES
 	virtual double getLocalReward(int me)=0;
@@ -67,9 +60,6 @@ public:
 	
 	// Walking functions
 	void roverRandomWalk();
-
-	// Generation functions
-	void generateRovers();
 
 	// IO
 	void exportGLog(std::string fileName);
@@ -88,9 +78,8 @@ public:
 
 	// Reset
 	void randomizePositions(std::vector<Rover> &r);
-//	void randomizePositions(std::vector<POI> &p);
 	void randomizeErrTypes(std::vector<Rover> &rovers);
+	void resetStaticRovers();
 
-	std::vector<std::vector<int> > startingPositions;
 };
 

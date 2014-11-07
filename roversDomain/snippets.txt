@@ -457,8 +457,21 @@ bool scrapeMatrixForVariable(std::vector<std::vector<std::string> > &varMatrix, 
 
 //#include "../../master_libraries/easyio/easyio.h" // Include for use of "NeuralNet::tester"
 
+///// FROM NEURALNET.H
+
 /*class NeuralNetParams{
 	
 };*/
 
+///// FROM PREDATORPREYDOMAIN.H
+
+
+	//const enum stateElementNames {orientationMe,distanceNearestPrey,orientationNearestPrey,distanceNearestNeighbor,orientationNearestNeighbor,numNonTypeElements};
+
+//// IN SETPREDPREYACTIONS()
+	/*GridWorld::PairQueueAscending pq = sortedPreyDists(prey[j].x,prey[j].y);
+				if (pq.top().first<1){
+					preyActions[j][1]*=2.0; // can move faster...
+				}*/
+				// each predator or wall acts as a force on prey
 

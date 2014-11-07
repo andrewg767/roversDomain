@@ -27,38 +27,38 @@
 using namespace std;
 
 vector<vector<double> > importCSV2(string filename){
-    ifstream file(filename.c_str());
-    if (!file.is_open()) printf("Failed to open file %s.\n", filename.c_str());
-    string value;
-    vector<vector<double> > filematrix;
+	ifstream file(filename.c_str());
+	if (!file.is_open()) printf("Failed to open file %s.\n", filename.c_str());
+	string value;
+	vector<vector<double> > filematrix;
 
-    while (file.good()){
-        getline(file,value);
-        istringstream iss(value);
-        string word;
-        vector<double> line;
-        while (getline(iss,word,',')){
-            line.push_back(atof(word.c_str()));
-        }
-        if (line.size()) filematrix.push_back(line);
-    }
-    file.close();
-    return filematrix;
+	while (file.good()){
+		getline(file,value);
+		istringstream iss(value);
+		string word;
+		vector<double> line;
+		while (getline(iss,word,',')){
+			line.push_back(atof(word.c_str()));
+		}
+		if (line.size()) filematrix.push_back(line);
+	}
+	file.close();
+	return filematrix;
 }
 
 vector<double> importCSV1(string filename){
-    ifstream file(filename.c_str());
-    if (!file.is_open()) printf("Failed to open file %s.\n", filename.c_str());
-    string value;
-    vector<double> filematrix;
+	ifstream file(filename.c_str());
+	if (!file.is_open()) printf("Failed to open file %s.\n", filename.c_str());
+	string value;
+	vector<double> filematrix;
 
-    while (file.good()){
-        getline(file,value);
+	while (file.good()){
+		getline(file,value);
 		filematrix.push_back(atof(value.c_str()));
-    }
+	}
 	filematrix.pop_back();
-    file.close();
-    return filematrix;
+	file.close();
+	return filematrix;
 }
 
 void printVector(vector<double> myvector, string fileName){
@@ -72,7 +72,7 @@ void printVector(vector<double> myvector, string fileName){
 
 void runSim(int nRuns, int nEpochs, int nTrials, PredatorPreyDomainParameters* domainParams){
 	std::vector<std::vector<double> > runGLogs(nRuns);
-	
+
 	for (int run=0; run<nRuns; run++){
 		clock_t tref = clock();
 		printf("Run %i: ",run);
@@ -100,7 +100,7 @@ void predatorPrey(){
 	PredatorPreyDomainParameters *domainParams = new PredatorPreyDomainParameters();
 	domainParams->usingTypes = true;
 	runSim(nRuns, nEpochs, nTrials, domainParams);
-	
+
 	//******* Types setting
 	domainParams->usingTypes = false;
 	runSim(nRuns, nEpochs, nTrials, domainParams);
