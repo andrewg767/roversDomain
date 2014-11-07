@@ -125,13 +125,6 @@ void GridWorld::randomizePositions(std::vector<Rover> &r){
 	}
 }
 
-/*void GridWorld::randomizePositions(std::vector<POI> &p){
-	for (int i=0; i<p.size(); i++){
-		p[i].x = rand()%bounds.size('x');
-		p[i].y = rand()%bounds.size('y');
-	}
-}*/
-
 
 void GridWorld::exportGLog(std::string fileName){
 	//  export a saved G value to a file

@@ -75,7 +75,6 @@ void simulatePredPreyEpoch(std::vector<NeuroEvo*> &NESet, std::vector<std::vecto
 		}
 	}
 
-//#pragma omp parallel for // MEMDEBUG	
 	for (int nthNN=0; nthNN<NESet[0]->population.size(); nthNN++){ // go through every neural network ...
 		simulatePredPreyEpisodeFull(NNSets[nthNN],domains[nthNN]);
 	}
@@ -207,8 +206,7 @@ void PredatorPreyDomain::movePred(Predator &me, std::vector<double> &action){
 		if (!blocked){
 			me.x=xset;
 			me.y=yset;
-		}
-		
+		}		
 		//detectZero(); // for debugging
 	}
 
@@ -275,19 +273,11 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 	GLog = std::vector<double>(nEpochs,0.0); // resets and allocates global reward logging
 
 	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements + int(Predator::numTypes)*(PPparams->usingTypes?1:0),2);
-//	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements,2); // both start the same for now...
+//	NeuroEvoParameters* NEParams = new NeuroEvoParameters(Predator::numNonTypeElements,2); // both start the same for now... FROM TESTING WITH DELAYED TYPE INTRODUCTION
 
 	std::vector<std::vector<PredatorPreyDomain*> > allTrialDomainsForEpoch(NEParams->popSize*2); // hardcoded: 2k=100 neural networks... edit this later
 
-	//int typeDelay = nEpochs; // backwards hack: this will make delay UNTIL step 1/2 the run; 'typedelay' is amount of time types has to learn
-
-	/*
-	bool trueUsingTypes = false;
-	if (PPparams->usingTypes){
-		PPparams->usingTypes=false;
-		trueUsingTypes = true;
-	}
-	*/
+	
 
 	for (int i=0; i<allTrialDomainsForEpoch.size(); i++){
 		allTrialDomainsForEpoch[i] = std::vector<PredatorPreyDomain*>(nTrials); // for every trial
@@ -314,8 +304,6 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 	}
 
 	
-	//if (trueUsingTypes) nEpochs = nEpochs-typeDelay; // prepares for break later, to insert stuff for typing
-
 	for (int i=0; i<nEpochs; i++){
 		//printf("Epoch %i\n",i);
 		if (i%50==0) printf("(%i/%i)",i,nEpochs);
@@ -324,34 +312,6 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 		//outputSteps();
 		GLog[i] = getAverageBestNNScore(NESet);
 	}
-
-	// using types again
-/*	if (trueUsingTypes){
-		PPparams->usingTypes=true;
-		nEpochs = nEpochs+typeDelay;
-		for (int i=0; i<NESet.size(); i++){
-			for (std::list<NeuralNet*>::iterator popMember=NESet[i]->population.begin(); popMember!=NESet[i]->population.end(); popMember++){
-				(*popMember)->addInputs(Predator::numTypes);
-			}
-		}
-		NEParams->nInput += Predator::numTypes;
-		
-		for (int i=0; i<allTrialDomainsForEpoch.size(); i++){
-			for (int j=0; j<allTrialDomainsForEpoch[i].size(); j++){
-				delete allTrialDomainsForEpoch[i][j]; // object cleanup
-				allTrialDomainsForEpoch[i][j] = new PredatorPreyDomain(PPparams);
-				allTrialDomainsForEpoch[i][j]->initializePredPreyRun();
-			}
-		}
-
-		for (int i=nEpochs-typeDelay; i<nEpochs; i++){
-			printf("Epoch %i\n",i);
-			simulatePredPreyEpoch(NESet,allTrialDomainsForEpoch);		
-			//outputSteps();
-			GLog[i] = getAverageBestNNScore(NESet);
-		}
-	}
-	*/
 
 	// OBJECT CLEANUP
 	for (int i=0; i<allTrialDomainsForEpoch.size(); i++){ // remove domains not being used
@@ -389,10 +349,6 @@ double mean(std::vector<double> myVector){
 	return sum(myVector)/double(myVector.size());
 }
 
-
-
-
-
 std::vector<double> PredatorPreyDomain::getLocalPredReward(void){
 	// NOTE: THIS IS A LOCAL REWARD, no coordination required...
 	// may later encourage coordination if other predators do not catch prey
@@ -411,47 +367,6 @@ std::vector<double> PredatorPreyDomain::getLocalPredReward(void){
 	}
 	return rwdvect;
 	//*/
-
-
-	/* ALSO DEPRECATED: MORE RECENT THOUGH
-	std::vector<double> rwdvect(predators.size(),0.0);
-	double rwdsum = 0.0;
-	if (allCaptured){
-		for (int i=0; i<predStepsToCapture.size(); i++){
-			rwdsum -= predStepsToCapture[i]/predStepsToCapture.size();
-		}
-	} else {
-		for (int i=0; i<deltaPredPrey.size(); i++){
-			for (int t=0; t<deltaPredPrey[i].size(); t++){
-				rwdsum -= deltaPredPrey[i][t];
-			}
-		}
-	}
-
-	for (int i=0; i<predators.size(); i++){
-		rwdvect[i] = rwdsum;
-	}
-	
-	return rwdvect;*/
-
-	/*std::vector<std::vector<double> > preyManhattanDists(predators.size());
-
-	std::vector<std::vector<GridWorld::PairQueueAscending> > pq(prey.size()); // pq[prey#][slot#]
-	for (int i=0; i<prey.size(); i++){
-		std::vector<std::vector<double> > cs = captureSlots(prey);
-		pq[i] = std::vector<GridWorld::PairQueueAscending>(captureSlots.size());
-		for (int j=0; j<captureSlots.size(); j++){ // go through cardinal capture directions
-			pq[i][j] = sortedPredatorDists(captureSlots[j][0],captureSlots[j][1]);
-		}
-	}
-
-	// Go through and ID which ones have conflict
-	for (int i=0; i<pq.size()-1; i++){
-		for (int j=i+1; j<pq.size(); j++){
-
-		}
-	}*/
-
 }
 
 bool PredatorPreyDomain::checkCapture(Rover &p){
@@ -527,7 +442,6 @@ void PredatorPreyDomain::initializePredPreyEpisode(int steps){
 
 
 void PredatorPreyDomain::simulatePredPreyEpisode(std::vector<NeuralNet*> NNSet, std::vector<double> &predFitnesses, std::vector<double> &preyFitnesses){
-//	int steps = 100;
 	int steps = 100;
 	stepLog.clear();
 	stepLog = std::vector<std::vector<std::vector<double> > >(steps);
@@ -583,19 +497,6 @@ double PredatorPreyDomain::getLocalReward(int me){
 }
 
 double PredatorPreyDomain::getGlobalReward(){
-	// Get distance between me and prey
-	/*if (allcaptured){
-		return -stepsToCapture;
-	} else {
-		double deltasum = 0.0;
-		for (int i=0; i<deltaPredPrey.size(); i++){
-			for (int j=0; j<deltaPredPrey[i].size(); j++){
-				deltasum+=deltaPredPrey[i][j];
-			}
-		}
-		return -deltasum;
-	}*/
-	//placeholder
 	printf("placeholder only");
 	return 0.0;
 }

@@ -26,14 +26,10 @@ public:
 					if (double(rand())/double(RAND_MAX)<mutationRate){
 						// reset one of the weights
 						double fan_in = double(Wbar[i].size());
-
 						std::default_random_engine generator;
 						generator.seed(time(NULL));
 						std::normal_distribution<double> distribution(0.0,mutStd);
 						Wbar[i][j][k] += distribution(generator);
-
-						//double rand_neg1to1 = (double(rand())/double(RAND_MAX))*2.0-1.0;
-						//Wbar[i][j][k] = rand_neg1to1/sqrt(fan_in);
 					}
 				}
 			}

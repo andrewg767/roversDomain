@@ -3,24 +3,6 @@
 
 using namespace std;
 
-/*void NeuralNet::tester(string trainfile, string testfile, string predictionfile){
-	vector<vector<string> > traindata_raw = FileManip::read(trainfile);
-	vector<vector<double> > traindata = DataManip::stringToDouble(traindata_raw);
-	vector<vector<double> > examples = DataManip::getColumns(traindata,vector<int>(1,0));
-	vector<vector<double> > labels = DataManip::getColumns(traindata,vector<int>(1,1));
-
-	int netSpecs[] = {1,10,10,1};
-	vector<int> netSpecsVector(netSpecs,netSpecs+sizeof(netSpecs)/sizeof(int));
-	NeuralNet NN = NeuralNet(netSpecsVector);
-	double epsilon = 0.01;
-	NN.train(examples,labels, epsilon);
-	
-	vector<vector<string> > testdata_raw = FileManip::read(testfile);
-	vector<vector<double> > testexamples = DataManip::stringToDouble(testdata_raw);
-	vector<vector<double> > predicts = NN.predict(testexamples);
-	PrintOut::toFile(predicts,predictionfile);
-}*/
-
 NeuralNet::NeuralNet(int nInputs, int nHidden, int nOutputs, double gamma){
 	std::vector<int> nodes(3);
 	nodes[0] = nInputs;
@@ -167,31 +149,6 @@ vector<double> NeuralNet::predictContinuous(vector<double> o){
 
 	return O.back();
 
-	
-	/* Rewrote this part for memory: new code has static O
-	for (int connection=0; connection<connections(); connection++){
-	//for (int connection=0; connection<connections()-1; connection++){
-		//printf("size(Wbar[connection])=%i",Wbar[connection].size());
-		o.push_back(1.0); // add 1 for bias
-		//printf("PREDICT: Asize=%i,Bsize=%i",o.size(),Wbar[connection].size());
-		o = (sigmoid(matrixMultiply(o,Wbar[connection]))); // Compute outputs
-	}
-	*/
-
-	// Don't sigmoid last one!
-	/*
-	o.push_back(1.0);
-	o = matrixMultiply(o,Wbar.back());
-	
-	// bound by max of matrix multiplication
-	
-	// scaling: max output = sqrt(fan_in), min = -sqrt(fan_in)
-	double sqrtfan_in = sqrt(double(Wbar.back().size()));
-	for (int i=0; i<o.size(); i++){
-		o[i]  = (o[i] + sqrtfan_in)/(2.0*sqrtfan_in);
-	}*/
-
-//	return o;
 }
 
 vector<vector<double> > NeuralNet::batchPredictBinary(vector<vector<double> > &O){
@@ -369,8 +326,6 @@ void  NeuralNet::matrixMultiply(vector<double> &A, vector<vector<double> > &B, v
 	// assumes A is a ROW vector (1xcols)
 	// returns a 1xsize(B,2) matrix
 
-	//printf("Asize=%i,Bsize=%i",A.size(),B.size());
-	//fprintf("mm2");
 	cmp_int_fatal(A.size(),B.size());
 	if (B[0].size()!=C.size() && B[0].size()!=C.size()-1){
 		printf("B and C sizes don't match. pausing");
@@ -385,13 +340,6 @@ void  NeuralNet::matrixMultiply(vector<double> &A, vector<vector<double> > &B, v
 		}
 	}
 };
-
-/*vector<double> NeuralNet::sigmoid(vector<double> myVector){
-	for (int i=0; i<myVector.size(); i++){
-		myVector[i] = 1/(1+exp(-myVector[i]));
-	}
-	return myVector;
-}*/
 
 void NeuralNet::sigmoid(vector<double> &myVector){
 	for (int i=0; i<myVector.size(); i++){

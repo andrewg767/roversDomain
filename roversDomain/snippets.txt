@@ -1,0 +1,406 @@
+/* CODE SNIPPETS FILE
+
+Snippets of dead code no longer used in simulation. Kept around for possible future use.
+
+*/
+
+
+
+///// FROM EASYIP.CPP
+
+/*
+string ftos(double f){
+	string s;
+	stringstream ss;
+	ss << f;
+	ss >> s;
+	return s;
+}
+
+string itos(int i){
+	string s;
+	stringstream ss;
+	ss << i;
+	ss >> s;
+	return s;
+}
+
+
+void prints(double * array_first, int dim1, int dim2, std::string label){
+    /*------------------------------------------------------------------------------------------*
+    |   "Print Array": Takes in address of first element of 2D array and prints out, labeled    |
+    *------------------------------------------------------------------------------------------*/
+/*
+    printf("Showing %s:\n\n", label.c_str());
+    for (int i=0; i<dim1; i++){
+        for (int j=0; j<dim2; j++){
+            printf("%f, ", array_first[i*dim1+j]);
+        }
+        printf("\n");
+    }
+    printf("\n\n");
+}
+
+void prints(double * array_first, int dim1, std::string label){
+    /*------------------------------------------------------------------------------------------*
+    |   "Print Array": Takes in address of first element of 1D array and prints out, labeled    |
+    *------------------------------------------------------------------------------------------*/
+/*
+    printf("Showing %s:\n\n", label.c_str());
+    for (int i=0; i<dim1; i++){
+        printf("%f, ", array_first[i]);
+    }
+    printf("\n\n");
+}
+
+
+void wait_for_key(){
+    printf("\nPress ENTER to continue...\n");
+    cin.clear();
+    cin.ignore(cin.rdbuf()->in_avail());
+    cin.get();
+    return;
+}
+
+void wait_for_key_silently(){
+    printf("\n");
+    cin.clear();
+    cin.ignore(cin.rdbuf()->in_avail());
+    cin.get();
+    return;
+}*/
+
+
+///// FROM GRIDWORLD.CPP
+
+
+/*void GridWorld::randomizePositions(std::vector<POI> &p){
+	for (int i=0; i<p.size(); i++){
+		p[i].x = rand()%bounds.size('x');
+		p[i].y = rand()%bounds.size('y');
+	}
+}*/
+
+///// FROM NEURALNET.CPP
+
+/*void NeuralNet::tester(string trainfile, string testfile, string predictionfile){
+	vector<vector<string> > traindata_raw = FileManip::read(trainfile);
+	vector<vector<double> > traindata = DataManip::stringToDouble(traindata_raw);
+	vector<vector<double> > examples = DataManip::getColumns(traindata,vector<int>(1,0));
+	vector<vector<double> > labels = DataManip::getColumns(traindata,vector<int>(1,1));
+
+	int netSpecs[] = {1,10,10,1};
+	vector<int> netSpecsVector(netSpecs,netSpecs+sizeof(netSpecs)/sizeof(int));
+	NeuralNet NN = NeuralNet(netSpecsVector);
+	double epsilon = 0.01;
+	NN.train(examples,labels, epsilon);
+	
+	vector<vector<string> > testdata_raw = FileManip::read(testfile);
+	vector<vector<double> > testexamples = DataManip::stringToDouble(testdata_raw);
+	vector<vector<double> > predicts = NN.predict(testexamples);
+	PrintOut::toFile(predicts,predictionfile);
+}*/
+
+/*vector<double> NeuralNet::sigmoid(vector<double> myVector){
+	for (int i=0; i<myVector.size(); i++){
+		myVector[i] = 1/(1+exp(-myVector[i]));
+	}
+	return myVector;
+}*/
+
+
+//// IN PREDICTCONTINUOUS()
+
+	
+	/* Rewrote this part for memory: new code has static O
+	for (int connection=0; connection<connections(); connection++){
+	//for (int connection=0; connection<connections()-1; connection++){
+		//printf("size(Wbar[connection])=%i",Wbar[connection].size());
+		o.push_back(1.0); // add 1 for bias
+		//printf("PREDICT: Asize=%i,Bsize=%i",o.size(),Wbar[connection].size());
+		o = (sigmoid(matrixMultiply(o,Wbar[connection]))); // Compute outputs
+	}
+	*/
+
+	// Don't sigmoid last one!
+	/*
+	o.push_back(1.0);
+	o = matrixMultiply(o,Wbar.back());
+	
+	// bound by max of matrix multiplication
+	
+	// scaling: max output = sqrt(fan_in), min = -sqrt(fan_in)
+	double sqrtfan_in = sqrt(double(Wbar.back().size()));
+	for (int i=0; i<o.size(); i++){
+		o[i]  = (o[i] + sqrtfan_in)/(2.0*sqrtfan_in);
+	}*/
+
+//	return o;
+
+
+
+///// FROM PREDATORPREY.CPP
+
+//// IN SIMULATEPREDPREYRUN
+
+//int typeDelay = nEpochs; // backwards hack: this will make delay UNTIL step 1/2 the run; 'typedelay' is amount of time types has to learn
+
+	/*
+	bool trueUsingTypes = false;
+	if (PPparams->usingTypes){
+		PPparams->usingTypes=false;
+		trueUsingTypes = true;
+	}
+	*/
+
+
+	//if (trueUsingTypes) nEpochs = nEpochs-typeDelay; // prepares for break later, to insert stuff for typing
+
+
+	// using types again
+/*	if (trueUsingTypes){
+		PPparams->usingTypes=true;
+		nEpochs = nEpochs+typeDelay;
+		for (int i=0; i<NESet.size(); i++){
+			for (std::list<NeuralNet*>::iterator popMember=NESet[i]->population.begin(); popMember!=NESet[i]->population.end(); popMember++){
+				(*popMember)->addInputs(Predator::numTypes);
+			}
+		}
+		NEParams->nInput += Predator::numTypes;
+		
+		for (int i=0; i<allTrialDomainsForEpoch.size(); i++){
+			for (int j=0; j<allTrialDomainsForEpoch[i].size(); j++){
+				delete allTrialDomainsForEpoch[i][j]; // object cleanup
+				allTrialDomainsForEpoch[i][j] = new PredatorPreyDomain(PPparams);
+				allTrialDomainsForEpoch[i][j]->initializePredPreyRun();
+			}
+		}
+
+		for (int i=nEpochs-typeDelay; i<nEpochs; i++){
+			printf("Epoch %i\n",i);
+			simulatePredPreyEpoch(NESet,allTrialDomainsForEpoch);		
+			//outputSteps();
+			GLog[i] = getAverageBestNNScore(NESet);
+		}
+	}
+	*/
+
+
+//// IN GETLOCALPREDREWARD.CPP
+
+
+	/* ALSO DEPRECATED: MORE RECENT THOUGH
+	std::vector<double> rwdvect(predators.size(),0.0);
+	double rwdsum = 0.0;
+	if (allCaptured){
+		for (int i=0; i<predStepsToCapture.size(); i++){
+			rwdsum -= predStepsToCapture[i]/predStepsToCapture.size();
+		}
+	} else {
+		for (int i=0; i<deltaPredPrey.size(); i++){
+			for (int t=0; t<deltaPredPrey[i].size(); t++){
+				rwdsum -= deltaPredPrey[i][t];
+			}
+		}
+	}
+
+	for (int i=0; i<predators.size(); i++){
+		rwdvect[i] = rwdsum;
+	}
+	
+	return rwdvect;*/
+
+	/*std::vector<std::vector<double> > preyManhattanDists(predators.size());
+
+	std::vector<std::vector<GridWorld::PairQueueAscending> > pq(prey.size()); // pq[prey#][slot#]
+	for (int i=0; i<prey.size(); i++){
+		std::vector<std::vector<double> > cs = captureSlots(prey);
+		pq[i] = std::vector<GridWorld::PairQueueAscending>(captureSlots.size());
+		for (int j=0; j<captureSlots.size(); j++){ // go through cardinal capture directions
+			pq[i][j] = sortedPredatorDists(captureSlots[j][0],captureSlots[j][1]);
+		}
+	}
+
+	// Go through and ID which ones have conflict
+	for (int i=0; i<pq.size()-1; i++){
+		for (int j=i+1; j<pq.size(); j++){
+
+		}
+	}*/
+
+//// IN GETGLOBALREWARD()
+	// Get distance between me and prey
+	/*if (allcaptured){
+		return -stepsToCapture;
+	} else {
+		double deltasum = 0.0;
+		for (int i=0; i<deltaPredPrey.size(); i++){
+			for (int j=0; j<deltaPredPrey[i].size(); j++){
+				deltasum+=deltaPredPrey[i][j];
+			}
+		}
+		return -deltasum;
+	}*/
+	//placeholder
+
+///// IN ROVERSDOMAIN.CPP
+/*
+void coevolutionWithTeleportation(){
+	// Coevolution from matt's paper assuming you can teleport to POI
+	//srand(time(NULL));
+	int MAXRUNS = 10;
+	int MAXEPOCHS = 100;
+	bool teleportation = false;
+	bool usingTypes = true;
+	std::string rewardType = "global";
+	std::string fileName;
+
+	if (teleportation) fileName += "teleport-";
+	else fileName+="noteleport-";
+	fileName+=rewardType+"-";
+	if (usingTypes) fileName += "types.csv";
+	else fileName += "blind.csv";
+
+	std::vector<std::vector<double> > pVals;
+
+#pragma omp parallel for
+	for (int run=0; run<MAXRUNS; run++){
+		// INITIALIZATION/RESET
+		printf("run %i/%i\n",run+1,MAXRUNS);
+		RoverPOIDomain domain;
+		domain.initializeRoverDomain(usingTypes,teleportation,rewardType);
+		
+		domain.simulateRunRoverDomain();
+		pVals.push_back(domain.performanceVals);
+	}
+
+	PrintOut::toFile(pVals,fileName);
+}
+*/
+
+/*
+void nntest(){
+	
+	Predator P = Predator(50,false);
+	std::vector<double> fitLog;
+	for (int i=0; i<10000; i++){
+		printf("Epoch %i\n",i);
+		P.evo.generateNewMembers();
+
+		bool epochNotEnded = true;
+		int nTrials = 20;
+		int nthNN=0;
+		while(epochNotEnded){
+			//printf("NN=%i\n",nthNN);
+			std::vector<double> pFitness(nTrials);
+
+			for (int t=0; t<nTrials; t++){
+				double x = double(rand())/double(RAND_MAX);
+				P.stateInputs = std::vector<double>(Predator::numNonTypeElements,0.0);
+				P.stateInputs[0] = x;
+//				printf("(input=%f,target=%f)\n",x,x*x);
+				vector<double> actionToTake = P.evo.getOutput(P.stateInputs);
+				pFitness[t] = -abs(actionToTake[0]-x*x);
+				//system("pause");
+			}
+
+			double pFit=0.0;
+			for (int i=0; i<nTrials; i++){
+				pFit += pFitness[i]/double(nTrials);
+			}
+
+			P.evo.updateMember(pFit);
+			epochNotEnded = P.evo.selectNewMember();
+			nthNN++;
+		}
+		fitLog.push_back(P.evo.getBestMemberVal());
+
+		P.evo.selectSurvivors();
+	}
+	PrintOut::toFile(fitLog,"fitTest.txt");
+	
+	std::vector<double> predicted;
+	P.evo.setNNToBestMember();
+	for (double x=0.0; x<1.0; x+=0.01){
+		P.stateInputs = std::vector<double>(Predator::numNonTypeElements,0.0);
+		P.stateInputs[0] = x;
+		vector<double> actionToTake = P.evo.getOutput(P.stateInputs);
+		predicted.push_back(actionToTake[0]);
+	}
+	PrintOut::toFile(predicted,"predicted.txt");
+
+}
+*/
+
+/*
+void MLExperiments(){
+	GridWorld grid;
+
+	int nRovers = 10;
+	int nPOI = 5;
+	int nSteps = 10;
+	int nEpisodesLearn = 1000;
+	int nEpisodesAct = 500;
+
+	grid.roverLearn(nSteps,nEpisodesLearn); // learn a policy with 10 rovers on 5 poi taking 10 steps for 1000 episodes
+	grid.exportGLog("roverG.txt");
+		for (double pf=0.0; pf<1.0; pf=pf+0.1){
+			grid.percentFail = pf;
+		grid.roverAct(nSteps,nEpisodesAct); // Fixed policy,
+	}
+	
+	grid.exportCSV2(grid.pathLog,"pathLog.txt");
+}
+*/
+/*void mattCoevolution(){
+	// Coevolution from Matt's paper
+
+	GridWorld grid;
+	grid.initialize(false,true,"global");
+	
+	grid.simulateRun();
+	PrintOut::toFile(grid.performanceVals,"roverGJuly.txt");
+	grid.performanceVals.clear();
+
+	grid.initialize(true,true,"global",false); // sets rovers so they are in original game
+
+	grid.simulateRun();
+	PrintOut::toFile(grid.performanceVals,"roverGJulyTypes.txt");
+}*/
+/*
+void mattCoevolutionWithTeleportation(){
+	// Coevolution from matt's paper assuming you can teleport to POI
+	//srand(time(NULL));
+	int MAXRUNS = 10;
+	int MAXEPOCHS = 100;
+	bool teleportation = false;
+	std::string rewardType = "global";
+	std::vector<std::vector<double> > typePerformanceVals;
+	std::vector<std::vector<double> > blindPerformanceVals;
+
+	for (int run=0; run<MAXRUNS; run++){
+		
+		printf("run %i/%i\n",run+1,MAXRUNS);
+		RoverPOIDomain domain;
+		domain.initializeRoverDomain(false,teleportation,rewardType);
+
+
+		domain.simulateRunRoverDomain();
+
+		//PrintOut::toFile(grid.performanceVals,"blind.txt");
+		//PrintOut::toFile(grid.pathLog,"blindpaths.csv");
+		blindPerformanceVals.push_back(domain.performanceVals);
+		domain.performanceVals.clear();
+
+		domain.initializeRoverDomain(true,teleportation,rewardType,false);
+
+		domain.simulateRunRoverDomain();
+		//PrintOut::toFile(grid.performanceVals,"types.txt");
+		//PrintOut::toFile(grid.pathLog,"typepaths.csv");
+
+		typePerformanceVals.push_back(domain.performanceVals);
+	}
+
+	PrintOut::toFile(blindPerformanceVals,"blind.txt");
+	PrintOut::toFile(typePerformanceVals,"types.txt");
+}*/

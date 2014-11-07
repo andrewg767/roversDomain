@@ -11,7 +11,6 @@ NeuroEvo::NeuroEvo(NeuroEvoParameters* neuroEvoParamsSet)
 	}
 }
 
-
 NeuroEvo::~NeuroEvo(void)
 {
 	while (!population.empty()){

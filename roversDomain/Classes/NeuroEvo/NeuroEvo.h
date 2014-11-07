@@ -13,7 +13,7 @@ public:
 		nInput(inputSet),
 		nHidden(15),
 		nOutput(outputSet),
-		popSize(50){}
+		popSize(10){}
 
 	int nInput;
 	int nHidden;
@@ -26,26 +26,16 @@ class NeuroEvo
 {
 public:
 	NeuroEvo(){};
-	NeuroEvo(NeuroEvoParameters* neuroEvoParamsSet); // Create a neuro-evo 'agent' with defined neural network parameters and a population size
+	NeuroEvo(NeuroEvoParameters* neuroEvoParamsSet);
 	~NeuroEvo(void);
-
 	NeuroEvoParameters* params;
-	void generateNewMembers(); // Generate k members to evaluate (also, select member 0 to begin evaluation)
-	
-	std::vector<double> getOutput(std::vector<double> inputs); // during simulation, use current NN to get actions (NOTE: could scale this at the end)
-
+	void generateNewMembers(); // Generate k new members from existing population
+	std::vector<double> getOutput(std::vector<double> inputs); // during simulation, use current NN to get actions
 	bool selectNewMember(); // Select the next member to test; if cannot be selected, end epoch
 	double getBestMemberVal(); // get the highest evaluation in the group
-
 	void setNNToBestMember();
-
-
 	void selectSurvivors();
-
-	//void selectAndMutate(void);
-	//void replaceWorstWithCurrent(double currentNNScore);
 	std::list<NeuralNet*> population;
-
 	static bool NNCompare(const NeuralNet *x, const NeuralNet *y) {return (x->evaluation>y->evaluation);}
 };
 
