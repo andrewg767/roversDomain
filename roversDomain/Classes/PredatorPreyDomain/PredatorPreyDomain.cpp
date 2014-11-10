@@ -31,7 +31,7 @@ std::vector<double> mean2(std::vector<std::vector<double> > myVector){
 	return myMean;
 }
 
-void simulatePredPreyEpisodeFull(std::vector<NeuralNet*> NNSet, std::vector<PredatorPreyDomain*> trials){
+void simulatePredPreyEpisodeFull(std::vector<NeuralNet*> NNSet, std::vector<PredatorPreyDomain*> trials, double &G){
 	// Parallelized SimulatePredPreyEpisode, with external elements of neuroevo
 	// NNSet is the set of neural networks being tested, 1/predator
 
@@ -42,10 +42,13 @@ void simulatePredPreyEpisodeFull(std::vector<NeuralNet*> NNSet, std::vector<Pred
 	for (int t=0; t<trials.size(); t++){
 		//printf("t=%i, ",t);
 		trials[t]->simulatePredPreyEpisode(NNSet,predFitnesses[t],preyFitnesses[t]); // pred/prey fitnesses set inside this
+		G += trials[t]->getGlobalRoverDomainReward(); // rover domain mod
 	}
 
 	std::vector<double> predFit = mean2(predFitnesses);
 	std::vector<double> preyFit = mean2(preyFitnesses);
+
+
 
 
 	for (int i=0; i<NNSet.size(); i++){
@@ -54,7 +57,7 @@ void simulatePredPreyEpisodeFull(std::vector<NeuralNet*> NNSet, std::vector<Pred
 
 }
 
-void simulatePredPreyEpoch(std::vector<NeuroEvo*> &NESet, std::vector<std::vector<PredatorPreyDomain*> > &domains){
+void simulatePredPreyEpoch(std::vector<NeuroEvo*> &NESet, std::vector<std::vector<PredatorPreyDomain*> > &domains, double &epochG){
 	// Domains: vector of domains that is population.size() x trials large, each an individual simulation
 	// Prey movement: Random
 
@@ -76,7 +79,7 @@ void simulatePredPreyEpoch(std::vector<NeuroEvo*> &NESet, std::vector<std::vecto
 	}
 
 	for (int nthNN=0; nthNN<NESet[0]->population.size(); nthNN++){ // go through every neural network ...
-		simulatePredPreyEpisodeFull(NNSets[nthNN],domains[nthNN]);
+		simulatePredPreyEpisodeFull(NNSets[nthNN],domains[nthNN],epochG);
 	}
 
 	for (int i=0; i<NESet.size(); i++){
@@ -303,14 +306,15 @@ void simulatePredPreyRun(PredatorPreyDomainParameters* PPparams, int nEpochs, in
 		NESet[i] = new NeuroEvo(NEParams);
 	}
 
-
+	std::vector<double> epochG(nEpochs,0.0);
 	for (int i=0; i<nEpochs; i++){
 		//printf("Epoch %i\n",i);
 		if (i%50==0) printf("(%i/%i)",i,nEpochs);
 		else printf(".");
-		simulatePredPreyEpoch(NESet,allTrialDomainsForEpoch);		
+		simulatePredPreyEpoch(NESet,allTrialDomainsForEpoch,epochG[i]);		
 		//outputSteps();
-		GLog[i] = getAverageBestNNScore(NESet);
+		//GLog[i] = getAverageBestNNScore(NESet); // ROVER DOMAIN MOD
+		GLog[i] = epochG[i];
 	}
 
 	// OBJECT CLEANUP
@@ -353,7 +357,7 @@ std::vector<double> PredatorPreyDomain::getLocalPredReward(void){
 	// NOTE: THIS IS A LOCAL REWARD, no coordination required...
 	// may later encourage coordination if other predators do not catch prey
 
-	/* PREVIOUS (NOT WORKING):*/
+	/* PREVIOUS (NOT WORKING):
 	std::vector<double> rwdvect(predators.size(),0.0);
 	for (int i=0; i<predators.size(); i++){
 		if (predators[i].caught){
@@ -365,8 +369,85 @@ std::vector<double> PredatorPreyDomain::getLocalPredReward(void){
 			}
 		}
 	}
+
 	return rwdvect;
 	//*/
+
+	/// THIS MOD TURNS IT INTO THE ROVER DOMAIN
+
+	/// G TESTING
+	//double G = getGlobalRoverDomainReward();
+	//return std::vector<double>(predators.size(),G);
+
+
+	/// D TESTING
+
+	//If more than two robots visit a POI, only the observations of the closest two are considered,
+	// and their visit distances are averaged in the computation of the system evaluation
+	
+	std::vector<double> D(predators.size(),0.0); // D for all of the rovers
+	typedef std::pair<double,int> P;
+
+	for (int i=0; i<prey.size(); i++){
+		Rover p = prey[i];
+
+		// Get all distances to POI
+		PairQueueAscending q = sortedPredatorDists(p.x,p.y);
+
+		// Get top 3 closest (dij, dik, dil) in order closest to farthest
+		double dij = q.top().first;
+		double j = q.top().second;
+		q.pop();
+		double dik = q.top().first;
+		double k = q.top().second;
+		q.pop();
+		double dil = q.top().first;
+		double l = q.top().second;
+
+		// BEGIN MODIFICATION
+		//double gatheredValjk, gatheredValjl,gatheredValkl; // modification
+	//	double multiplej, multiplek,multiplel; // modification
+		// average the multiples based on type...
+		/*if (rovers[j].type==0){
+			multiplej=0.25;
+		} else if (rovers[j].type==2){
+			multiplej=0.5;
+		} else if (rovers[j].type==3){
+			multiplej=0.75;
+		}
+		if (rovers[k].type==0){
+			multiplek=0.25;
+		} else if (rovers[k].type==2){
+			multiplek=0.5;
+		} else if (rovers[k].type==3){
+			multiplek=0.75;
+		}
+		if (rovers[l].type==0){
+			multiplel=0.25;
+		} else if (rovers[l].type==2){
+			multiplel=0.5;
+		} else if (rovers[l].type==3){
+			multiplel=0.75;
+		}
+		gatheredValjk = p.val*(multiplej+multiplek);
+		gatheredValjl = p.val*(multiplej+multiplel);
+		gatheredValkl = p.val*(multiplek+multiplel);*/
+		// END MODIFICATION
+
+	
+		double gatheredValjk = 1.0;
+		double gatheredValkl = 1.0;
+
+		if (dil<deltaO){ // required coordination
+			D[unsigned(j)]+=2.0*(1.0/(dik+dij+2.0)-1.0/(dik+dil+2.0)); // original
+			D[unsigned(k)]+=2.0*(1.0/(dik+dij+2.0)-1.0/(dij+dil+2.0)); // original
+			//D[unsigned(j)]+=gatheredValjk/(dik+dij+2.0)-gatheredValkl/(dik+dil+2.0); // modified
+		} else if ((dij<deltaO) && (dik<deltaO)){
+			D[unsigned(j)]+=2.0*gatheredValjk/(dik+dij+2.0); // reduces to original
+			D[unsigned(k)]+=2.0*gatheredValjk/(dik+dij+2.0);
+		}
+	}
+	return D;//*/
 }
 
 bool PredatorPreyDomain::checkCapture(Rover &p){
@@ -442,7 +523,7 @@ void PredatorPreyDomain::initializePredPreyEpisode(int steps){
 
 
 void PredatorPreyDomain::simulatePredPreyEpisode(std::vector<NeuralNet*> NNSet, std::vector<double> &predFitnesses, std::vector<double> &preyFitnesses){
-	int steps = 100;
+	int steps = 30;
 	stepLog.clear();
 	stepLog = std::vector<std::vector<std::vector<double> > >(steps);
 
@@ -612,8 +693,8 @@ void Predator::selectAction(NeuralNet* NN){ // given a certain stateInputs (defi
 
 PredatorPreyDomainParameters::PredatorPreyDomainParameters():
 	usingTypes(true),
-	nPredators(20),
-	nPrey(8),
+	nPredators(40),
+	nPrey(50),
 	rewardType(Global)
 {
 	fixedTypes= std::vector<Predator::PredatorTypes>(nPredators);
@@ -681,6 +762,8 @@ void PredatorPreyDomain::setPredatorActions(std::vector<NeuralNet*> NNSet){
 
 
 void PredatorPreyDomain::setPreyActions(std::vector<std::vector<double> > &preyActions){
+
+	/*
 	for (int j=0; j<prey.size(); j++){
 		preyActions[j] = std::vector<double>(2);
 		if (!prey[j].caught){
@@ -706,6 +789,17 @@ void PredatorPreyDomain::setPreyActions(std::vector<std::vector<double> > &preyA
 			prey[j].orientation = fDir;
 			preyActions[j][0]=0; // already set by fdir
 			preyActions[j][1]=2.0;
+		}
+	}*/
+
+	// MOD FOR ROVER DOMAIN
+
+	for (int i=0; i<prey.size(); i++){
+		preyActions[i] = std::vector<double>(2);
+		if (!prey[i].caught){
+			preyActions[i][0] = 0;
+			preyActions[i][1]=0;
+			prey[i].orientation = 0;
 		}
 	}
 }

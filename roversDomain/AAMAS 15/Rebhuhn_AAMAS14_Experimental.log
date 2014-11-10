@@ -1,7 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.28)  3 NOV 2014 00:13
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.28)  10 NOV 2014 00:11
 entering extended mode
 **Rebhuhn_AAMAS14_Experimental.tex
-("C:\Users\Carrie\Documents\AAMAS 15\Rebhuhn_AAMAS14_Experimental.tex"
+
+("C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\roversDoma
+in\AAMAS 15\Rebhuhn_AAMAS14_Experimental.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -13,7 +15,9 @@ german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
-("C:\Users\Carrie\Documents\AAMAS 15\aamas2014.cls"
+
+("C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\roversDoma
+in\AAMAS 15\aamas2014.cls"
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\epsfig.sty"
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
@@ -196,7 +200,8 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ae\t1aer.fd"
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 )))
-("C:\Users\Carrie\Documents\AAMAS 15\Rebhuhn_AAMAS14_Experimental.aux")
+("C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\roversDoma
+in\AAMAS 15\Rebhuhn_AAMAS14_Experimental.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
@@ -246,50 +251,66 @@ File: omsaer.fd 1999/12/27
 LaTeX Font Info:    Font shape `OMS/aer/m/n' in size <9> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 13.
 
-Overfull \hbox (2.47346pt too wide) in paragraph at lines 25--26
+Overfull \hbox (2.47346pt too wide) in paragraph at lines 28--29
 []\T1/aer/m/n/9 Agent mod-el-ing tech-niques ac-com-mo-date these dif-fer-ences
 .
  []
+
+
+LaTeX Warning: Citation `GOM' on page \thepage  undefined on input line 30.
 
 [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 ]
 
+LaTeX Warning: Reference `sec:rover' on page \thepage  undefined on input line 
+52.
+
+
+Overfull \hbox (2.4011pt too wide) in paragraph at lines 52--53
+[]\T1/aer/m/n/9 Stereotyping has vary-ing def-i-ni-tions. We de-fine it as grou
+p-
+ []
+
+
 LaTeX Warning: Citation `predictivemodels' on page \thepage  undefined on input
- line 62.
+ line 63.
 
 
 LaTeX Warning: Citation `playingstyle' on page \thepage  undefined on input lin
-e 62.
+e 63.
+
+
+LaTeX Warning: Citation `Bard' on page \thepage  undefined on input line 65.
 
 
 LaTeX Warning: Citation `denzinger2004improving' on page \thepage  undefined on
- input line 76.
+ input line 77.
 
 
 LaTeX Warning: Citation `DBLP:conf/aaai/BardB07' on page \thepage  undefined on
- input line 76.
+ input line 77.
 
 [2]
 
-LaTeX Warning: Citation `panait' on page \thepage  undefined on input line 92.
+LaTeX Warning: Citation `panait' on page \thepage  undefined on input line 93.
 
 
 LaTeX Warning: Citation `otherpursuitpaper' on page \thepage  undefined on inpu
-t line 92.
+t line 93.
 
 
 LaTeX Warning: Reference `predprey' on page \thepage  undefined on input line 9
-7.
+8.
 
 <pics/kitten.jpg, id=18, 903.375pt x 903.375pt>
 File: pics/kitten.jpg Graphic file (type jpg)
  <use pics/kitten.jpg>
-Package pdftex.def Info: pics/kitten.jpg used on input line 112.
+Package pdftex.def Info: pics/kitten.jpg used on input line 115.
 (pdftex.def)             Requested size: 252.0pt x 251.99216pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 112--113
+Overfull \hbox (12.0pt too wide) in paragraph at lines 115--116
 [][] 
  []
 
@@ -297,64 +318,57 @@ Overfull \hbox (12.0pt too wide) in paragraph at lines 112--113
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3861) has occurred while \output is active []
 
- [3 <C:/Users/Carrie/Documents/AAMAS 15/pics/kitten.jpg>]
-Overfull \hbox (2.32953pt too wide) in paragraph at lines 176--177
+ [3 <C:/Users/Carrie/Documents/Visual Studio 2012/Projects/roversDomain/roversD
+omain/AAMAS 15/pics/kitten.jpg>]
+Overfull \hbox (2.32953pt too wide) in paragraph at lines 184--185
 []\T1/aer/m/n/9 To test whether our ap-proach in-creases the abil-ity of agents
 
  []
 
+<pics/ratio_20a.png, id=24, 422.32782pt x 311.66437pt>
+File: pics/ratio_20a.png Graphic file (type png)
+
+<use pics/ratio_20a.png>
+Package pdftex.def Info: pics/ratio_20a.png used on input line 187.
+(pdftex.def)             Requested size: 252.0pt x 185.97284pt.
+
+Overfull \hbox (12.0pt too wide) in paragraph at lines 187--188
+[][] 
+ []
+
 File: pics/kitten.jpg Graphic file (type jpg)
 <use pics/kitten.jpg>
-Package pdftex.def Info: pics/kitten.jpg used on input line 179.
+Package pdftex.def Info: pics/kitten.jpg used on input line 206.
 (pdftex.def)             Requested size: 252.0pt x 251.99216pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 179--180
+Overfull \hbox (12.0pt too wide) in paragraph at lines 206--207
 [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-File: pics/kitten.jpg Graphic file (type jpg)
-<use pics/kitten.jpg>
-Package pdftex.def Info: pics/kitten.jpg used on input line 188.
-(pdftex.def)             Requested size: 252.0pt x 251.99216pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 188--189
-[][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-File: pics/kitten.jpg Graphic file (type jpg)
-<use pics/kitten.jpg>
-Package pdftex.def Info: pics/kitten.jpg used on input line 198.
-(pdftex.def)             Requested size: 252.0pt x 251.99216pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 198--199
-[][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[4] ("C:\Users\Carrie\Documents\AAMAS 15\Rebhuhn_AAMAS14_Experimental.bbl")
-[5] ("C:\Users\Carrie\Documents\AAMAS 15\Rebhuhn_AAMAS14_Experimental.aux")
+("C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\roversDoma
+in\AAMAS 15\Rebhuhn_AAMAS14_Experimental.bbl" [4 <C:/Users/Carrie/Documents/Vis
+ual Studio 2012/Projects/roversDomain/roversDomain/AAMAS 15/pics/ratio_20a.png 
+(PNG copy)>]) [5]
+("C:\Users\Carrie\Documents\Visual Studio 2012\Projects\roversDomain\roversDoma
+in\AAMAS 15\Rebhuhn_AAMAS14_Experimental.aux")
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2472 strings out of 493921
- 29619 string characters out of 3147279
- 88647 words of memory out of 3000000
- 5722 multiletter control sequences out of 15000+200000
+ 2479 strings out of 493921
+ 30322 string characters out of 3147279
+ 89639 words of memory out of 3000000
+ 5728 multiletter control sequences out of 15000+200000
  51369 words of font info for 67 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 41i,10n,28p,1258b,276s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,10n,28p,1259b,276s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><C:/Program Files/MiKTeX 2.9/
@@ -369,9 +383,9 @@ es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files/MiKTeX
 e1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/u
 tmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Pro
 gram Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rebhuhn_AAMAS14_Experimental.pdf (5 pages, 288032 bytes).
+Output written on Rebhuhn_AAMAS14_Experimental.pdf (5 pages, 295191 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
+ 81 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
