@@ -38,7 +38,7 @@ void simulatePredPreyEpisodeFull(std::vector<NeuralNet*> NNSet, std::vector<Pred
 	std::vector<std::vector<double> > predFitnesses(trials.size());
 	std::vector<std::vector<double> > preyFitnesses(trials.size());
 
-	//#pragma omp parallel for // TODO: verify parallelizability
+	#pragma omp parallel for // TODO: verify parallelizability
 	for (int t=0; t<trials.size(); t++){
 		//printf("t=%i, ",t);
 		trials[t]->simulatePredPreyEpisode(NNSet,predFitnesses[t],preyFitnesses[t]); // pred/prey fitnesses set inside this
@@ -591,19 +591,24 @@ void Predator::selectAction(NeuralNet* NN){ // given a certain stateInputs (defi
 	// Type implementation scales the output
 	if (type==CCW){
 		// scale the neural network orientation command between 0-pi
-		actionToTake[0]/=4.0; // HACK: can only turn 90deg max
+		//actionToTake[0]/=4.0; // HACK: can only turn 90deg max
+		actionToTake[0]/=8.0;
 
 		// Hack #2: immobile agent
 		//actionToTake[1] = 0.0;
 	} else if (type==CW){	
 		// unreliable agent
-		if (rand()%100<30){ // 30% of the time random
+		/*if (rand()%100<30){ // 30% of the time random
+			actionToTake[0] = double(rand())/double(RAND_MAX)*2.0-1.0;
+			actionToTake[1] = double(rand())/double(RAND_MAX);
+		}*/
+		if (rand()%100<80){ // 30% of the time random
 			actionToTake[0] = double(rand())/double(RAND_MAX)*2.0-1.0;
 			actionToTake[1] = double(rand())/double(RAND_MAX);
 		}
-
 	} else if (type== Fast){
-		actionToTake[1] *= 2.0; // multiply output action by 2
+		//actionToTake[1] *= 2.0; // multiply output action by 2
+		actionToTake[1] *= 10.0;
 	}
 
 	actionToTake[1]*=moveDistCap;
@@ -613,7 +618,7 @@ void Predator::selectAction(NeuralNet* NN){ // given a certain stateInputs (defi
 PredatorPreyDomainParameters::PredatorPreyDomainParameters():
 	usingTypes(true),
 	nPredators(20),
-	nPrey(8),
+	nPrey(10),
 	rewardType(Global)
 {
 	fixedTypes= std::vector<Predator::PredatorTypes>(nPredators);
