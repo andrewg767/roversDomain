@@ -81,30 +81,6 @@ public:
 	void initializePredPreyEpisode(int steps);
 	void setUniqueRandomPredPreyPositions();
 
-	double getGlobalRoverDomainReward(){
-		double G = 0.0;
-		for (int i=0; i<prey.size(); i++){
-			Rover p = prey[i];
-
-			// Get all distances to POI
-			PairQueueAscending q = sortedPredatorDists(p.x,p.y);
-
-			// Get top 2 closest (dij, dik, dil) in order closest to farthest
-			double dij = q.top().first;
-			double j = q.top().second;
-			q.pop();
-			double dik = q.top().first;
-			double k = q.top().second;
-			q.pop();
-
-			double gatheredValjk = 1.0;
-			double gatheredValkl = 1.0;
-
-			G+=2.0*gatheredValjk/(dik+dij+2.0); // reduces to original
-		}
-		return G;
-	}
-
 	void simulatePredPreyEpisode(std::vector<NeuralNet*> NNSet, std::vector<double> &predFitnesses, std::vector<double> &preyFitnesses);
 	void move(Rover &me, std::vector<double> &action);
 	void movePred(Predator &me, std::vector<double> &action);
